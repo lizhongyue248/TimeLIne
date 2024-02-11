@@ -35,6 +35,8 @@ kotlin {
             implementation(libs.apache.commons)
             implementation(libs.app.dirs)
             implementation(libs.serialization.json)
+            api(libs.koin)
+            api(libs.koin.compose)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test.junit)
