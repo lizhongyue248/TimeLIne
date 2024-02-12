@@ -28,22 +28,23 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.slf4j)
-            implementation(libs.tinylog)
-            implementation(libs.tinylog.impl)
-            implementation(libs.tinylog.slf4j)
-            implementation(libs.apache.commons)
-            implementation(libs.app.dirs)
-            implementation(libs.serialization.json)
+            api(libs.slf4j)
+            api(libs.tinylog)
+            api(libs.tinylog.impl)
+            api(libs.tinylog.slf4j)
+            api(libs.apache.commons)
+            api(libs.app.dirs)
+            api(libs.serialization.json)
             api(libs.koin)
             api(libs.koin.compose)
+            api(libs.kotlinx.datetime)
         }
         commonTest.dependencies {
-            implementation(libs.kotlin.test.junit)
-            implementation(libs.kotlinx.coroutines.test)
+            api(libs.kotlin.test.junit)
+            api(libs.kotlinx.coroutines.test)
         }
         jvmTest.dependencies {
-            implementation(libs.mockk)
+            api(libs.mockk)
         }
     }
 }

@@ -1,17 +1,19 @@
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.window.WindowDraggableArea
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberDialogState
 import component.MDialogWindow
 import component.rightBottom
-import page.home.HomePageTitle
+import component.PageTitle
 import java.awt.GraphicsEnvironment
 
 fun main() = application {
@@ -33,10 +35,11 @@ fun main() = application {
     ) {
         App(
             homeModifier = Modifier.fillMaxWidth()
-                .padding(top = 12.dp, bottom = 6.dp, start = 24.dp, end = 12.dp),
+                .padding(top = 12.dp, bottom = 6.dp, start = 24.dp, end = 12.dp)
+                .shadow(20.dp, RoundedCornerShape(5.dp)),
             title = {
                 WindowDraggableArea {
-                    HomePageTitle()
+                    PageTitle()
                 }
             }
         )

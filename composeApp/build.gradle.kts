@@ -47,8 +47,8 @@ kotlin {
         val desktopTest by getting
 
         androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
+            api(libs.compose.ui.tooling.preview)
+            api(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
             api(compose.runtime)
@@ -62,19 +62,19 @@ kotlin {
             api(libs.pre.compose)
         }
         commonTest.dependencies {
-            implementation(projects.shared)
+            api(projects.shared)
         }
         desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
-            implementation(compose.desktop.uiTestJUnit4)
-            implementation(libs.plist)
-            implementation(libs.jkeymaster)
-            implementation(libs.jSystemThemeDetector)
+            api(compose.desktop.currentOs)
+            api(compose.desktop.uiTestJUnit4)
+            api(libs.plist)
+            api(libs.jkeymaster)
+            api(libs.jSystemThemeDetector)
         }
         desktopTest.dependencies {
         }
         jvmTest.dependencies {
-            implementation(libs.json.schema)
+            api(libs.json.schema)
         }
     }
 }

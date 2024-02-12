@@ -8,12 +8,12 @@ import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.rememberNavigator
 import page.home.HomePage
-import page.home.HomePageTitle
+import component.PageTitle
 
 @Composable
 fun App(
     homeModifier: Modifier = Modifier,
-    title: @Composable () -> Unit = { HomePageTitle() }
+    title: @Composable () -> Unit = { PageTitle() }
 ) {
     PreComposeApp {
         val navigator = rememberNavigator()
