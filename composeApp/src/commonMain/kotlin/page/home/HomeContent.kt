@@ -103,7 +103,7 @@ fun HomeContentItem(item: TimeData) {
     ) {
         Text(item.name, fontSize = 16.sp, maxLines = 1)
         Text(item.createDate.toDateString(), fontSize = 12.sp, lineHeight = 18.sp)
-        HorizontalDivider(color = Color.LightGray, modifier = Modifier.fillMaxWidth())
+        HorizontalDivider(color = Color.LightGray, modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
     }
 }
 

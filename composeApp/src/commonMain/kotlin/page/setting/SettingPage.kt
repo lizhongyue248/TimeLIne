@@ -1,17 +1,16 @@
-package page.home
+package page.setting
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.MoreHoriz
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.Backup
+import androidx.compose.material.icons.outlined.Folder
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,9 +20,10 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import moe.tlaster.precompose.navigation.Navigator
 
+
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun HomePage(
+fun SettingPage(
     modifier: Modifier = Modifier,
     title: @Composable () -> Unit,
     navigator: Navigator
@@ -40,38 +40,29 @@ fun HomePage(
                 title = title,
                 navigationIcon = {
                     IconButton(
-                        onClick = { navigator.navigate("/setting") },
+                        onClick = { navigator.goBack() },
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Settings,
+                            imageVector = Icons.Outlined.Backup,
                             contentDescription = "Localized description"
                         )
                     }
                 },
                 actions = {
                     IconButton(
-                        onClick = { /* do something */ },
+                        onClick = { navigator.goBack() },
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.MoreHoriz,
-                            contentDescription = "Localized description"
+                            imageVector = Icons.Outlined.Folder,
+                            contentDescription = "Open config file"
                         )
                     }
-                },
+                }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* do something */ },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
-            ) {
-                Icon(Icons.Outlined.Add, "Localized description")
-            }
-        },
-    ) { paddingValues ->
-        HomeContent(paddingValues)
-
+    ) {
+        Text("Ta")
     }
 }

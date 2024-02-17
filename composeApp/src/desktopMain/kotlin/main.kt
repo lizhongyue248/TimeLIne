@@ -12,8 +12,8 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberDialogState
 import component.MDialogWindow
-import component.rightBottom
 import component.PageTitle
+import component.rightBottom
 import java.awt.GraphicsEnvironment
 
 fun main() = application {
@@ -34,7 +34,7 @@ fun main() = application {
         state = dialogState,
     ) {
         App(
-            homeModifier = Modifier.fillMaxWidth()
+            pageModifier = Modifier.fillMaxWidth()
                 .padding(top = 12.dp, bottom = 6.dp, start = 24.dp, end = 12.dp)
                 .shadow(20.dp, RoundedCornerShape(5.dp)),
             title = {
