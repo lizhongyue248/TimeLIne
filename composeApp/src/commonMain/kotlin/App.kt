@@ -8,10 +8,13 @@ import androidx.compose.ui.Modifier
 import component.PageTitle
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.navigation.NavHost
-import moe.tlaster.precompose.navigation.rememberNavigator
+import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.transition.NavTransition
+import page.detail.DetailPage
 import page.home.HomePage
 import page.setting.SettingPage
+import store.AppStore
+import store.Route
 
 fun NavFadeTransition(
     createTransition: EnterTransition = fadeIn(),
@@ -35,29 +38,35 @@ fun App(
     title: @Composable (String) -> Unit = { PageTitle(it) }
 ) {
     PreComposeApp {
-        val navigator = rememberNavigator()
         MaterialTheme {
             NavHost(
-                navigator = navigator,
-                initialRoute = "/home",
+                navigator = AppStore.navigator,
+                initialRoute = Route.HOME,
                 navTransition = NavFadeTransition()
             ) {
                 scene(
-                    route = "/home",
+                    route = Route.HOME,
                 ) {
                     HomePage(
                         modifier = pageModifier,
-                        title = { title("Time Line") },
-                        navigator = navigator
+                        title = { title("Time Line") }
                     )
                 }
                 scene(
-                    route = "/setting",
+                    route = Route.SETTING,
                 ) {
                     SettingPage(
                         modifier = pageModifier,
-                        title = { title("Settings") },
-                        navigator = navigator
+                        title = { title("Settings") }
+                    )
+                }
+                scene(
+                    route = Route.DETAIL,
+                ) { backStackEntry ->
+                    DetailPage(
+                        modifier = pageModifier,
+                        id = backStackEntry.path<Int>("id")!!,
+                        title = { title("Settings") }
                     )
                 }
             }

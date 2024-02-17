@@ -35,6 +35,8 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 import model.TimeData
 import model.TimeDataList
+import store.AppStore
+import store.Route
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -97,7 +99,9 @@ fun HomeContent(innerPadding: PaddingValues) {
 fun HomeContentItem(item: TimeData) {
     Column(
         modifier = Modifier
-            .clickable { }
+            .clickable {
+                AppStore.navigator.navigate(Route.detailPath(item.id))
+            }
             .pointerHoverIcon(PointerIcon.Hand)
             .padding(8.dp, 4.dp, 8.dp, 0.dp),
     ) {
@@ -107,6 +111,6 @@ fun HomeContentItem(item: TimeData) {
     }
 }
 
-private fun LocalDateTime.toDateString(): String {
+fun LocalDateTime.toDateString(): String {
     return "${this.year}-${this.monthNumber}-${this.dayOfMonth}"
 }

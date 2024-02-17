@@ -19,14 +19,13 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
-import moe.tlaster.precompose.navigation.Navigator
+import store.AppStore
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun HomePage(
     modifier: Modifier = Modifier,
     title: @Composable () -> Unit,
-    navigator: Navigator
 ) {
     Scaffold(
         modifier = modifier,
@@ -40,7 +39,7 @@ fun HomePage(
                 title = title,
                 navigationIcon = {
                     IconButton(
-                        onClick = { navigator.navigate("/setting") },
+                        onClick = { AppStore.navigator.navigate("/setting") },
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
                     ) {
                         Icon(
@@ -72,6 +71,5 @@ fun HomePage(
         },
     ) { paddingValues ->
         HomeContent(paddingValues)
-
     }
 }
