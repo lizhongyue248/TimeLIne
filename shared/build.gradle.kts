@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
@@ -7,6 +8,7 @@ plugins {
 }
 
 kotlin {
+    jvmToolchain(17)
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
        browser()
@@ -23,29 +25,50 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework("Shared") {
+            // Make AppleSettings visible from Swift
+            export(libs.settings.noarg)
+            @OptIn(ExperimentalKotlinGradlePluginApi::class)
+            transitiveExport = true
+        }
+    }
+
     jvm()
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.slf4j)
-            api(libs.tinylog)
-            api(libs.tinylog.impl)
-            api(libs.tinylog.slf4j)
-            api(libs.apache.commons)
-            api(libs.app.dirs)
+            api(libs.kermit)
             api(libs.serialization.json)
+            api(libs.serialization.json.okio)
             api(libs.koin)
             api(libs.koin.compose)
             api(libs.kotlinx.datetime)
+            api(libs.okio)
+            api(libs.settings.noarg)
         }
         commonTest.dependencies {
             api(libs.kotlin.test.junit)
             api(libs.kotlinx.coroutines.test)
         }
+        jvmMain.dependencies {
+            api(libs.app.dirs)
+        }
         jvmTest.dependencies {
             api(libs.mockk)
         }
+
+        listOf(jvmMain, nativeMain, androidMain)
+            .forEach {
+                it.dependencies {
+                    api(libs.settings.serialization)
+                }
+            }
     }
 }
 

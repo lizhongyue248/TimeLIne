@@ -5,7 +5,9 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import co.touchlab.kermit.Logger
 import component.PageTitle
+import expect.listLogWriter
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.path
@@ -37,6 +39,8 @@ fun App(
     pageModifier: Modifier = Modifier,
     title: @Composable (String) -> Unit = { PageTitle(it) }
 ) {
+    Logger.setLogWriters(listLogWriter())
+    Logger.setTag("app")
     PreComposeApp {
         MaterialTheme {
             NavHost(

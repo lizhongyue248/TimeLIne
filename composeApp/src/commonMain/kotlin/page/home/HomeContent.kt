@@ -71,6 +71,9 @@ fun HomeContent(innerPadding: PaddingValues) {
             .nestedScroll(nestedScrollConnection),
         contentPadding = innerPadding
     ) {
+        item {
+            Text(AppStore.configuration.name)
+        }
         itemsIndexed(TimeDataList) { _, it ->
             DraggableItem(
                 onAnchoredStateChanged = {

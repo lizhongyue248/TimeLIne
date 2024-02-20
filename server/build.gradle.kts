@@ -16,4 +16,8 @@ dependencies {
     implementation(libs.ktor.server.core)
     implementation(libs.ktor.server.netty)
     testImplementation(libs.ktor.server.tests)
+    api(libs.slf4j)
+    api(libs.tinylog)
+    api(libs.tinylog.impl)
+    api(libs.tinylog.slf4j)
 }

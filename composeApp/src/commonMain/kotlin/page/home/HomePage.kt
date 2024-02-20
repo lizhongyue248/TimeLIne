@@ -20,6 +20,7 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import store.AppStore
+import kotlin.random.Random
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,7 +64,7 @@ fun HomePage(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { /* do something */ },
+                onClick = { AppStore.setName("Hello ${Random.nextInt(500)}")},
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
             ) {
                 Icon(Icons.Outlined.Add, "Localized description")
