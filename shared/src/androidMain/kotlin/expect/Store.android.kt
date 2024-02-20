@@ -1,6 +1,5 @@
 package expect
 
-import StoreKeys
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.get
 import com.russhwolf.settings.serialization.decodeValue
@@ -8,7 +7,8 @@ import com.russhwolf.settings.serialization.encodeValue
 import com.russhwolf.settings.set
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
-import settings
+import state.StoreKeys
+import state.settings
 
 object AndroidStore: Store {
     @Suppress("UNCHECKED_CAST")

@@ -32,11 +32,11 @@ import androidx.compose.ui.unit.sp
 import component.swipe.DragAnchors
 import component.swipe.DraggableItem
 import kotlinx.coroutines.launch
-import kotlinx.datetime.LocalDateTime
 import model.TimeData
-import model.TimeDataList
 import store.AppStore
+import store.GlobalStore
 import store.Route
+import toDateString
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -71,11 +71,17 @@ fun HomeContent(innerPadding: PaddingValues) {
             .nestedScroll(nestedScrollConnection),
         contentPadding = innerPadding
     ) {
-        item {
-            Text(AppStore.configuration.name)
-        }
-        itemsIndexed(TimeDataList) { _, it ->
+        itemsIndexed(AppStore.state.timeList) { _, it ->
             DraggableItem(
+                onDelete = {
+                    GlobalStore.confirmDialog(
+                        text = "Do you confirm remove ${it.name} ?",
+                        onConfirm = {
+                            AppStore.deleteTimeData(it.id)
+                        }
+                    )
+                },
+                onEdit = {},
                 onAnchoredStateChanged = {
                     if (it.targetValue == DragAnchors.Center && currentSwipeState == it) {
                         currentSwipeState = null
@@ -103,17 +109,16 @@ fun HomeContentItem(item: TimeData) {
     Column(
         modifier = Modifier
             .clickable {
-                AppStore.navigator.navigate(Route.detailPath(item.id))
+                GlobalStore.navigator.navigate(Route.detailPath(item.id))
             }
             .pointerHoverIcon(PointerIcon.Hand)
             .padding(8.dp, 4.dp, 8.dp, 0.dp),
     ) {
         Text(item.name, fontSize = 16.sp, maxLines = 1)
         Text(item.createDate.toDateString(), fontSize = 12.sp, lineHeight = 18.sp)
-        HorizontalDivider(color = Color.LightGray, modifier = Modifier.fillMaxWidth().padding(top = 8.dp))
+        HorizontalDivider(
+            color = Color.LightGray,
+            modifier = Modifier.fillMaxWidth().padding(top = 8.dp)
+        )
     }
-}
-
-fun LocalDateTime.toDateString(): String {
-    return "${this.year}-${this.monthNumber}-${this.dayOfMonth}"
 }

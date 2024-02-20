@@ -1,7 +1,6 @@
 package expect
 
 import CONFIG_PATH
-import StoreKeys
 import co.touchlab.kermit.Logger
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -13,6 +12,7 @@ import kotlinx.serialization.json.okio.decodeFromBufferedSource
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import okio.buffer
+import state.StoreKeys
 
 object JvmStore : Store {
     private val fs = FileSystem.SYSTEM

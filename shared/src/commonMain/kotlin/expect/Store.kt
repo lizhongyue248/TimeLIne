@@ -1,7 +1,7 @@
 package expect
 
-import StoreKeys
 import kotlinx.serialization.KSerializer
+import state.StoreKeys
 
 interface Store {
     fun <T> get(key: StoreKeys, defaultValue: T, serializer: KSerializer<T>): T

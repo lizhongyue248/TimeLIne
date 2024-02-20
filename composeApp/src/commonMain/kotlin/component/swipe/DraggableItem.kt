@@ -24,6 +24,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -33,7 +35,9 @@ import kotlin.math.roundToInt
 @Composable
 fun DraggableItem(
     content: @Composable BoxScope.() -> Unit,
-    onAnchoredStateChanged: (AnchoredDraggableState<DragAnchors>) -> Unit = {}
+    onAnchoredStateChanged: (AnchoredDraggableState<DragAnchors>) -> Unit = {},
+    onDelete: () -> Unit = {},
+    onEdit: () -> Unit = {}
 ) {
     val density = LocalDensity.current
 
@@ -79,6 +83,8 @@ fun DraggableItem(
                                 .roundToInt(), 0
                         )
                     }
+                    .pointerHoverIcon(PointerIcon.Hand),
+                onClick = onEdit,
             )
             DeleteAction(
                 Modifier
@@ -91,6 +97,8 @@ fun DraggableItem(
                                 .roundToInt(), 0
                         )
                     }
+                    .pointerHoverIcon(PointerIcon.Hand),
+                onClick = onDelete
             )
         }
         Box(

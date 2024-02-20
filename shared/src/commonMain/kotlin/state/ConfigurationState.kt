@@ -1,8 +1,11 @@
+package state
+
 import com.russhwolf.settings.Settings
 import kotlinx.serialization.Serializable
 
 enum class StoreKeys {
-    Configuration;
+    Configuration,
+    Application;
 }
 
 val settings: Settings by lazy { Settings() }

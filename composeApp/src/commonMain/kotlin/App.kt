@@ -2,7 +2,10 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import co.touchlab.kermit.Logger
@@ -15,7 +18,7 @@ import moe.tlaster.precompose.navigation.transition.NavTransition
 import page.detail.DetailPage
 import page.home.HomePage
 import page.setting.SettingPage
-import store.AppStore
+import store.GlobalStore
 import store.Route
 
 fun NavFadeTransition(
@@ -44,7 +47,7 @@ fun App(
     PreComposeApp {
         MaterialTheme {
             NavHost(
-                navigator = AppStore.navigator,
+                navigator = GlobalStore.navigator,
                 initialRoute = Route.HOME,
                 navTransition = NavFadeTransition()
             ) {
@@ -74,6 +77,43 @@ fun App(
                     )
                 }
             }
+            if (GlobalStore.alert.visible) {
+                AppConfirmDialog()
+            }
         }
     }
+}
+
+@Composable
+fun AppConfirmDialog() {
+    AlertDialog(
+        title = {
+            if (GlobalStore.alert.title.isNotBlank()) {
+                Text(text = GlobalStore.alert.title)
+            }
+        },
+        text = {
+            if (GlobalStore.alert.text.isNotBlank()) {
+                Text(text = GlobalStore.alert.text)
+            }
+        },
+        onDismissRequest = { GlobalStore.trigger() },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    GlobalStore.alert.onConfirm()
+                    GlobalStore.trigger()
+                }
+            ) {
+                Text("Confirm")
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = { GlobalStore.trigger() }
+            ) {
+                Text("Dismiss")
+            }
+        }
+    )
 }

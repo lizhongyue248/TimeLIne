@@ -1,11 +1,11 @@
 package expect
 
-import StoreKeys
 import com.russhwolf.settings.get
 import com.russhwolf.settings.set
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
-import settings
+import state.StoreKeys
+import state.settings
 
 object WasmStore : Store {
     private val json = Json { ignoreUnknownKeys = true }

@@ -1,6 +1,7 @@
 package component.swipe
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,9 +37,10 @@ fun SaveAction(modifier: Modifier) {
 
 
 @Composable
-fun EditAction(modifier: Modifier) {
+fun EditAction(modifier: Modifier, onClick: () -> Unit = {}) {
     Box(
-        modifier = modifier.background(EditAction),
+        modifier = modifier.background(EditAction)
+            .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -51,10 +53,11 @@ fun EditAction(modifier: Modifier) {
 }
 
 @Composable
-fun DeleteAction(modifier: Modifier) {
+fun DeleteAction(modifier: Modifier, onClick: () -> Unit = {}) {
     Box(
-        modifier = modifier.background(DeleteAction),
-        contentAlignment = Alignment.Center
+        modifier = modifier.background(DeleteAction)
+            .clickable { onClick() },
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = "Delete",

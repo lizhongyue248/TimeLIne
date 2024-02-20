@@ -51,6 +51,7 @@ kotlin {
             api(libs.kotlinx.datetime)
             api(libs.okio)
             api(libs.settings.noarg)
+            api("com.benasher44:uuid:0.8.2")
         }
         commonTest.dependencies {
             api(libs.kotlin.test.junit)

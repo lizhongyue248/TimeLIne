@@ -1,16 +1,22 @@
 package store
 
-import ConfigurationState
-import StoreKeys
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import co.touchlab.kermit.Logger
+import com.benasher44.uuid.uuid4
 import expect.getStore
-import moe.tlaster.precompose.navigation.Navigator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import model.LineData
+import model.TimeData
+import state.ApplicationState
+import state.ConfigurationState
+import state.StoreKeys
 
 object AppStore {
     private val store = getStore()
-    val navigator = Navigator()
     var configuration: ConfigurationState by mutableStateOf(
         store.get(
             StoreKeys.Configuration,
@@ -19,13 +25,67 @@ object AppStore {
         )
     )
         private set
+    var state: ApplicationState by mutableStateOf(
+        store.get(
+            StoreKeys.Application,
+            ApplicationState(emptyList(), emptyList()),
+            ApplicationState.serializer()
+        )
+    )
 
     private inline fun setConfiguration(update: ConfigurationState.() -> ConfigurationState) {
         configuration = configuration.update()
-        store.set(StoreKeys.Configuration, configuration, ConfigurationState.serializer())
+        CoroutineScope(Dispatchers.Default).launch {
+            store.set(StoreKeys.Configuration, configuration, ConfigurationState.serializer())
+        }
+    }
+
+    private inline fun setState(update: ApplicationState.() -> ApplicationState) {
+        state = state.update()
+        CoroutineScope(Dispatchers.Default).launch {
+            store.set(StoreKeys.Application, state, ApplicationState.serializer())
+        }
     }
 
     fun setName(name: String) {
         setConfiguration { configuration.copy(name = name) }
+    }
+
+    fun addTimeData(
+        name: String,
+        coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    ) {
+        val data = TimeData(name = name, id = uuid4().toString())
+        val list = state.timeList.toMutableList()
+        list.add(0, data)
+        setState { state.copy(timeList = list) }
+        coroutineScope.launch {
+            GlobalStore.snackbar.showSnackbar("Add Success", withDismissAction = true)
+        }
+    }
+
+    fun deleteTimeData(
+        id: String,
+        coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    ) {
+        val list = state.timeList.toMutableList()
+        val index = list.indexOfFirst { it.id === id }
+        if (index < 0) {
+            Logger.w { "Can not find time data $id." }
+            return
+        }
+        list.removeAt(index)
+        setState { state.copy(timeList = list) }
+        coroutineScope.launch {
+            GlobalStore.snackbar.showSnackbar("Delete Success", withDismissAction = true)
+        }
+    }
+
+    fun updateTimeData(list: List<TimeData>) {
+        setState { state.copy(timeList = list) }
+    }
+
+    fun updateLineData(list: List<LineData>) {
+        setState { state.copy(lineList = list) }
     }
 }
