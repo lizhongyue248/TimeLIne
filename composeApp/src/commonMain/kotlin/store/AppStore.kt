@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import model.LineData
 import model.TimeData
+import now
 import state.ApplicationState
 import state.ConfigurationState
 import state.StoreKeys
@@ -71,13 +72,44 @@ object AppStore {
         val list = state.timeList.toMutableList()
         val index = list.indexOfFirst { it.id === id }
         if (index < 0) {
-            Logger.w { "Can not find time data $id." }
+            Logger.w { "Can not find time data $id, delete error." }
+            coroutineScope.launch {
+                GlobalStore.snackbar.showSnackbar(
+                    "Can not find time data $id, delete error.",
+                    withDismissAction = true
+                )
+            }
             return
         }
         list.removeAt(index)
         setState { state.copy(timeList = list) }
         coroutineScope.launch {
             GlobalStore.snackbar.showSnackbar("Delete Success", withDismissAction = true)
+        }
+    }
+
+    fun editTimeData(
+        id: String,
+        name: String,
+        coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    ) {
+        val list = state.timeList.toMutableList()
+        val index = list.indexOfFirst { it.id === id }
+        if (index < 0) {
+            Logger.w { "Can not find time data $id, update error." }
+            coroutineScope.launch {
+                GlobalStore.snackbar.showSnackbar(
+                    "Can not find time data $id, update error.",
+                    withDismissAction = true
+                )
+            }
+            return
+        }
+        val item = list.removeAt(index).copy(name = name, updateDate = now())
+        list.add(index, item)
+        setState { state.copy(timeList = list) }
+        coroutineScope.launch {
+            GlobalStore.snackbar.showSnackbar("Update Success", withDismissAction = true)
         }
     }
 

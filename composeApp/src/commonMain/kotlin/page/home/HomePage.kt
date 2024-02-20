@@ -82,7 +82,7 @@ fun HomePage(
         HomeContent(paddingValues)
     }
     if (addDialog.value) {
-        HomeAddDialog(
+        HomeActionDialog(
             onDismissRequest = { addDialog.value = false },
             onConfirmation = {
                 AppStore.addTimeData(it)

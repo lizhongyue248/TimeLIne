@@ -22,10 +22,10 @@ import store.GlobalStore
 import store.Route
 
 fun NavFadeTransition(
-    createTransition: EnterTransition = fadeIn(),
+    createTransition: EnterTransition = fadeIn(initialAlpha = 0.5f),
     destroyTransition: ExitTransition = fadeOut(),
     pauseTransition: ExitTransition = fadeOut(),
-    resumeTransition: EnterTransition = fadeIn(),
+    resumeTransition: EnterTransition = fadeIn(initialAlpha = 0.5f),
     enterTargetContentZIndex: Float = 0f,
     exitTargetContentZIndex: Float = 0f,
 ) = object : NavTransition {
@@ -72,7 +72,7 @@ fun App(
                 ) { backStackEntry ->
                     DetailPage(
                         modifier = pageModifier,
-                        id = backStackEntry.path<Int>("id")!!,
+                        id = backStackEntry.path<String>("id")!!,
                         title = { title("Settings") }
                     )
                 }

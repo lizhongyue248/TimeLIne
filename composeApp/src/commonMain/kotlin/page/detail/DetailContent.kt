@@ -24,20 +24,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import model.LineData
-import model.LineDataList
 import model.LineDateType
+import store.AppStore
 
 @Composable
-fun DetailContent(innerPadding: PaddingValues) {
-    val data = LineDataList
-        .groupBy { it.date.year }
-        .mapValues { (_, list) ->
-            val sortedList = list.sortedWith(compareByDescending { it.date })
-            val dateYearList = sortedList
-                .filter { it.dateType == LineDateType.DATE_YEAR }
-                .sortedByDescending { it.createDate }
-            dateYearList + sortedList.filter { it.dateType != LineDateType.DATE_YEAR }
-        }
+fun DetailContent(id: String, innerPadding: PaddingValues) {
+    val data = AppStore.state.timeLineData[id] ?: emptyMap()
 
     var columnHeight by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current

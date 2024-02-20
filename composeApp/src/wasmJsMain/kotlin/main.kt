@@ -3,7 +3,10 @@ import androidx.compose.ui.window.CanvasBasedWindow
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    CanvasBasedWindow(canvasElementId = "ComposeTarget") {
+    CanvasBasedWindow(
+        title = "Time Line",
+        canvasElementId = "ComposeTarget"
+    ) {
         App()
     }
 }

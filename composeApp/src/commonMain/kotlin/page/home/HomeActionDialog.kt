@@ -19,16 +19,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 
 @Composable
-fun HomeAddDialog(
+fun HomeActionDialog(
+    name: String = "",
     onDismissRequest: () -> Unit,
     onConfirmation: (String) -> Unit,
 ) {
-    var nameState by rememberSaveable { mutableStateOf("") }
+    var nameState by rememberSaveable { mutableStateOf(name) }
     Dialog(
         onDismissRequest = onDismissRequest
     ) {
@@ -61,9 +64,10 @@ fun HomeAddDialog(
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
                 ) {
-                    Button(onClick = {
-                        onDismissRequest()
-                    }, modifier = Modifier.padding(8.dp)) {
+                    Button(
+                        onClick = { onDismissRequest() },
+                        modifier = Modifier.padding(8.dp).pointerHoverIcon(PointerIcon.Hand)
+                    ) {
                         Text("Cancel")
                     }
                     Button(onClick = {
@@ -71,7 +75,7 @@ fun HomeAddDialog(
                             onConfirmation(nameState)
                         }
                         onDismissRequest()
-                    }, modifier = Modifier.padding(8.dp)) {
+                    }, modifier = Modifier.padding(8.dp).pointerHoverIcon(PointerIcon.Hand)) {
                         Text("Confirm")
                     }
                 }

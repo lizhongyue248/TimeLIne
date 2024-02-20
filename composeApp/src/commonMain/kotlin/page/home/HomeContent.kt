@@ -66,6 +66,9 @@ fun HomeContent(innerPadding: PaddingValues) {
         }
     }
 
+    val editDialog = remember { mutableStateOf(false) }
+    val editName = remember { mutableStateOf("") }
+    val editId = remember { mutableStateOf("") }
     LazyColumn(
         modifier = Modifier.consumeWindowInsets(innerPadding)
             .nestedScroll(nestedScrollConnection),
@@ -77,11 +80,15 @@ fun HomeContent(innerPadding: PaddingValues) {
                     GlobalStore.confirmDialog(
                         text = "Do you confirm remove ${it.name} ?",
                         onConfirm = {
-                            AppStore.deleteTimeData(it.id)
+                            AppStore.deleteTimeData(it.id, coroutineScope)
                         }
                     )
                 },
-                onEdit = {},
+                onEdit = {
+                    editId.value = it.id
+                    editName.value = it.name
+                    editDialog.value = true
+                },
                 onAnchoredStateChanged = {
                     if (it.targetValue == DragAnchors.Center && currentSwipeState == it) {
                         currentSwipeState = null
@@ -101,6 +108,14 @@ fun HomeContent(innerPadding: PaddingValues) {
                 }
             )
         }
+    }
+    if (editDialog.value) {
+        HomeActionDialog(
+            editName.value,
+            onDismissRequest = { editDialog.value = false },
+            onConfirmation = { name ->
+                AppStore.editTimeData(editId.value, name, coroutineScope)
+            })
     }
 }
 

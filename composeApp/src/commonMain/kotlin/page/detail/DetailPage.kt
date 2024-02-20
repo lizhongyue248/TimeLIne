@@ -27,7 +27,7 @@ import store.GlobalStore
 @OptIn(ExperimentalMaterial3Api::class)
 fun DetailPage(
     modifier: Modifier = Modifier,
-    id: Int,
+    id: String,
     title: @Composable () -> Unit,
 ) {
     Scaffold(
@@ -68,6 +68,6 @@ fun DetailPage(
             }
         },
     ) { paddingValues ->
-        DetailContent(paddingValues)
+        DetailContent(id, paddingValues)
     }
 }
