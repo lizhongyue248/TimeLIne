@@ -7,7 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import co.touchlab.kermit.Logger
 import component.PageTitle
 import expect.listLogWriter
@@ -39,7 +38,6 @@ fun NavFadeTransition(
 
 @Composable
 fun App(
-    pageModifier: Modifier = Modifier,
     title: @Composable (String) -> Unit = { PageTitle(it) }
 ) {
     Logger.setLogWriters(listLogWriter())
@@ -55,7 +53,6 @@ fun App(
                     route = Route.HOME,
                 ) {
                     HomePage(
-                        modifier = pageModifier,
                         title = { title("Time Line") }
                     )
                 }
@@ -63,7 +60,6 @@ fun App(
                     route = Route.SETTING,
                 ) {
                     SettingPage(
-                        modifier = pageModifier,
                         title = { title("Settings") }
                     )
                 }
@@ -71,7 +67,6 @@ fun App(
                     route = Route.DETAIL,
                 ) { backStackEntry ->
                     DetailPage(
-                        modifier = pageModifier,
                         id = backStackEntry.path<String>("id")!!,
                         title = { title("Settings") }
                     )

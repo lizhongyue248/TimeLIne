@@ -1,5 +1,6 @@
 package page.home
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
@@ -34,7 +35,7 @@ fun HomePage(
 
     val addDialog = remember { mutableStateOf(false) }
     Scaffold(
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
         snackbarHost = {
             SnackbarHost(hostState = GlobalStore.snackbar)
         },

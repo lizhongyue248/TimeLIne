@@ -4,6 +4,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import expect.Platform
+import expect.getPlatform
 import moe.tlaster.precompose.navigation.Navigator
 import state.AlertState
 
@@ -13,6 +15,7 @@ object GlobalStore {
         private set
 
     var snackbar = SnackbarHostState()
+    val platform: Platform = getPlatform()
 
     private inline fun setAlert(update: AlertState.() -> AlertState) {
         alert = alert.update()

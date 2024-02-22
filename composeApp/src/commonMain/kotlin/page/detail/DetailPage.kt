@@ -1,6 +1,7 @@
 package page.detail
 
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
@@ -26,12 +27,11 @@ import store.GlobalStore
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun DetailPage(
-    modifier: Modifier = Modifier,
     id: String,
     title: @Composable () -> Unit,
 ) {
     Scaffold(
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
         snackbarHost = {
             SnackbarHost(hostState = GlobalStore.snackbar)
         },
@@ -70,4 +70,5 @@ fun DetailPage(
     ) { paddingValues ->
         DetailContent(id, paddingValues)
     }
+    DetailActionDialog()
 }

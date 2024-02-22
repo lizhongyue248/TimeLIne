@@ -1,5 +1,6 @@
 package page.setting
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
@@ -25,11 +26,10 @@ import store.GlobalStore
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun SettingPage(
-    modifier: Modifier = Modifier,
     title: @Composable () -> Unit,
 ) {
     Scaffold(
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
         snackbarHost = {
             SnackbarHost(hostState = GlobalStore.snackbar)
         },

@@ -1,6 +1,12 @@
 package component
 
-import java.awt.*
+import java.awt.Dimension
+import java.awt.GraphicsConfiguration
+import java.awt.GraphicsEnvironment
+import java.awt.Point
+import java.awt.Rectangle
+import java.awt.Toolkit
+import java.awt.Window
 import java.awt.event.WindowEvent
 import java.awt.event.WindowFocusListener
 
@@ -13,54 +19,56 @@ import java.awt.event.WindowFocusListener
  * We basically override the standard behaviour of the window manager.
  */
 internal object WindowLocationTracker {
-  private val cascadeOffset = Point(48, 48)
+    private val cascadeOffset = Point(48, 48)
 
-  private var lastFocusedWindows = mutableSetOf<Window>()
+    private var lastFocusedWindows = mutableSetOf<Window>()
 
-  private val focusListener = object : WindowFocusListener {
-    override fun windowGainedFocus(e: WindowEvent) {
-      // put window on the top of the set
-      lastFocusedWindows.remove(e.window)
-      lastFocusedWindows.add(e.window)
+    private val focusListener = object : WindowFocusListener {
+        override fun windowGainedFocus(e: WindowEvent) {
+            // put window on the top of the set
+            lastFocusedWindows.remove(e.window)
+            lastFocusedWindows.add(e.window)
+        }
+
+        override fun windowLostFocus(e: WindowEvent) = Unit
     }
 
-    override fun windowLostFocus(e: WindowEvent) = Unit
-  }
-
-  fun onWindowCreated(window: Window) {
-    window.addWindowFocusListener(focusListener)
-  }
-
-  fun onWindowDisposed(window: Window) {
-    window.removeWindowFocusListener(focusListener)
-    lastFocusedWindows.remove(window)
-  }
-
-  val lastActiveGraphicsConfiguration: GraphicsConfiguration? get() =
-    lastFocusedWindows.lastOrNull()?.graphicsConfiguration
-
-  fun getCascadeLocationFor(window: Window): Point {
-    val lastWindow = lastFocusedWindows.lastOrNull()
-    val graphicsConfiguration = lastWindow?.graphicsConfiguration ?:
-    GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice?.defaultConfiguration
-
-    return if (graphicsConfiguration != null) {
-      val screenBounds = graphicsConfiguration.bounds
-      val screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfiguration)
-      val screenLeftTop = screenBounds.leftTop + Point(screenInsets.left, screenInsets.top)
-      val screenRightBottom = screenBounds.rightBottom - Point(screenInsets.right, screenInsets.bottom)
-
-      val lastLocation = lastWindow?.location ?: screenLeftTop
-      var location = lastLocation + cascadeOffset
-      val rightBottom = location + window.size.rightBottom
-      if (rightBottom.x > screenRightBottom.x || rightBottom.y > screenRightBottom.y) {
-        location = screenLeftTop + cascadeOffset
-      }
-      location
-    } else {
-      cascadeOffset
+    fun onWindowCreated(window: Window) {
+        window.addWindowFocusListener(focusListener)
     }
-  }
+
+    fun onWindowDisposed(window: Window) {
+        window.removeWindowFocusListener(focusListener)
+        lastFocusedWindows.remove(window)
+    }
+
+    val lastActiveGraphicsConfiguration: GraphicsConfiguration?
+        get() =
+            lastFocusedWindows.lastOrNull()?.graphicsConfiguration
+
+    fun getCascadeLocationFor(window: Window): Point {
+        val lastWindow = lastFocusedWindows.lastOrNull()
+        val graphicsConfiguration = lastWindow?.graphicsConfiguration
+            ?: GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice?.defaultConfiguration
+
+        return if (graphicsConfiguration != null) {
+            val screenBounds = graphicsConfiguration.bounds
+            val screenInsets = Toolkit.getDefaultToolkit().getScreenInsets(graphicsConfiguration)
+            val screenLeftTop = screenBounds.leftTop + Point(screenInsets.left, screenInsets.top)
+            val screenRightBottom =
+                screenBounds.rightBottom - Point(screenInsets.right, screenInsets.bottom)
+
+            val lastLocation = lastWindow?.location ?: screenLeftTop
+            var location = lastLocation + cascadeOffset
+            val rightBottom = location + window.size.rightBottom
+            if (rightBottom.x > screenRightBottom.x || rightBottom.y > screenRightBottom.y) {
+                location = screenLeftTop + cascadeOffset
+            }
+            location
+        } else {
+            cascadeOffset
+        }
+    }
 }
 
 internal val Dimension.rightBottom get() = Point(width, height)

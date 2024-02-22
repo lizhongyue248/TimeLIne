@@ -1,12 +1,7 @@
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.window.WindowDraggableArea
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.application
@@ -22,21 +17,19 @@ fun main() = application {
     val dialogState = rememberDialogState(
         width = 420.dp,
         height = 700.dp,
-        position = WindowPosition((rightBottom.x - 400).dp, (rightBottom.y - 690).dp)
+        position = WindowPosition((rightBottom.x - 420).dp, (rightBottom.y - 700).dp)
     )
 
     MDialogWindow(
-        onCloseRequest = { }, visible = visible.value,
+        onCloseRequest = { },
+        visible = visible.value,
         alwaysOnTop = true,
         undecorated = true,
-        transparent = true,
+        transparent = false,
         resizable = false,
         state = dialogState,
     ) {
         App(
-            pageModifier = Modifier.fillMaxWidth()
-                .padding(top = 12.dp, bottom = 6.dp, start = 24.dp, end = 12.dp)
-                .shadow(20.dp, RoundedCornerShape(5.dp)),
             title = {
                 WindowDraggableArea {
                     PageTitle()
