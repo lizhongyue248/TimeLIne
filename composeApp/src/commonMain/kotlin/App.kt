@@ -15,6 +15,7 @@ import moe.tlaster.precompose.navigation.NavHost
 import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.transition.NavTransition
 import page.detail.DetailPage
+import page.detail.action.DetailActionPage
 import page.home.HomePage
 import page.setting.SettingPage
 import store.GlobalStore
@@ -69,6 +70,23 @@ fun App(
                     DetailPage(
                         id = backStackEntry.path<String>("id")!!,
                         title = { title("Settings") }
+                    )
+                }
+                scene(
+                    route = Route.DETAIL_ACTION
+                ) { backStackEntry ->
+                    val id = backStackEntry.path<String>("id")
+                    val timeId = backStackEntry.path<String>("timeId")!!
+                    DetailActionPage(
+                        id = id,
+                        timeId = timeId,
+                        title = {
+                            if (id == null) {
+                                title("New")
+                            } else {
+                                title("Edit")
+                            }
+                        }
                     )
                 }
             }

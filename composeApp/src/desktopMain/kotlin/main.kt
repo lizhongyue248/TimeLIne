@@ -32,7 +32,7 @@ fun main() = application {
         App(
             title = {
                 WindowDraggableArea {
-                    PageTitle()
+                    PageTitle(it)
                 }
             }
         )

@@ -113,11 +113,15 @@ object AppStore {
         }
     }
 
-    fun updateTimeData(list: List<TimeData>) {
-        setState { state.copy(timeList = list) }
-    }
-
-    fun updateLineData(list: List<LineData>) {
+    fun addLineData(
+        data: LineData,
+        coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    ) {
+        val list = state.lineList.toMutableList()
+        list.add(0, data)
         setState { state.copy(lineList = list) }
+        coroutineScope.launch {
+            GlobalStore.snackbar.showSnackbar("Add Success", withDismissAction = true)
+        }
     }
 }

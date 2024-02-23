@@ -1,38 +1,59 @@
-package page.detail
+package page.detail.action
 
-
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ArrowBackIosNew
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import com.benasher44.uuid.uuid4
+import model.LineData
+import store.AppStore
 import store.GlobalStore
-import store.Route.Companion.detailAction
 
-
-@Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun DetailPage(
-    id: String,
+@Composable
+fun DetailActionPage(
+    timeId: String,
+    id: String? = null,
     title: @Composable () -> Unit,
 ) {
+    val state = remember {
+        mutableStateOf(
+            AppStore.state.lineList.find { it.id == (id ?: "") }
+                ?: LineData(
+                    id = uuid4().toString(),
+                    name = "",
+                    description = "",
+                    timeId = timeId
+                )
+        )
+    }
+
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxWidth(),
         snackbarHost = {
             SnackbarHost(hostState = GlobalStore.snackbar)
         },
@@ -56,19 +77,24 @@ fun DetailPage(
                     }
                 },
                 actions = {
-                    DetailAction()
+                    TextButton(
+                        onClick = {
+                            AppStore.addLineData(state.value, coroutineScope)
+                            GlobalStore.navigator.goBack()
+                        },
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                    ) {
+                        Text("Save")
+                    }
                 }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { GlobalStore.navigator.navigate(detailAction(timeId = id)) },
-                modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
-            ) {
-                Icon(Icons.Outlined.Add, "Localized description")
-            }
-        },
     ) { paddingValues ->
-        DetailContent(id, paddingValues)
+        Box(
+            modifier = Modifier.consumeWindowInsets(paddingValues).padding(8.dp).fillMaxWidth(),
+            contentAlignment = Alignment.TopCenter
+        ) {
+            DetailActionForm(state)
+        }
     }
 }

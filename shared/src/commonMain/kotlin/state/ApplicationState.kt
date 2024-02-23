@@ -11,7 +11,7 @@ data class ApplicationState(
     val lineList: List<LineData>
 ) {
     val timeLineData: Map<String, Map<Int, List<LineData>>>
-        get() = lineList.groupBy { it.id }
+        get() = lineList.groupBy { it.timeId }
             .mapValues { item ->
                 item.value
                     .groupBy { it.date.year }
