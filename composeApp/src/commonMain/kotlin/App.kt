@@ -69,7 +69,7 @@ fun App(
                 ) { backStackEntry ->
                     DetailPage(
                         timeId = backStackEntry.path<String>("id")!!,
-                        title = { title("Settings") }
+                        title = { title(backStackEntry.path<String>("name")!!) }
                     )
                 }
                 scene(

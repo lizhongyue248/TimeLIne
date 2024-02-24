@@ -28,6 +28,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import component.NoDataPage
 import model.LineData
 import model.LineDateType
 import store.AppStore
@@ -37,6 +38,10 @@ import store.Route
 @Composable
 fun DetailContent(timeId: String, innerPadding: PaddingValues) {
     val data = AppStore.state.timeLineData[timeId] ?: emptyMap()
+    if (data.isEmpty()) {
+        NoDataPage()
+        return
+    }
 
     var columnHeight by remember { mutableStateOf(0.dp) }
     val density = LocalDensity.current

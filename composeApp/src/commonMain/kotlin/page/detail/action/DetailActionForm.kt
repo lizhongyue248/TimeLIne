@@ -41,11 +41,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import component.MTextField
 import isNotDigit
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.minus
+import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import model.LineData
@@ -55,6 +58,7 @@ import store.AppStore
 import store.GlobalStore
 import toDateString
 import toLocalDate
+import toLocalTime
 import toTImeWithoutSecondString
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -139,10 +143,10 @@ internal fun DetailActionForm(state: MutableState<LineData>, id: String?) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DetailFormDate(state: MutableState<LineData>) {
-    var date by remember { mutableStateOf<LocalDate?>(null) }
-    var time by remember { mutableStateOf<LocalTime?>(null) }
-    var dateYear by remember { mutableStateOf("") }
-    var dateMonth by remember { mutableStateOf("") }
+    var date by remember { mutableStateOf<LocalDate?>(state.value.date.toLocalDate()) }
+    var time by remember { mutableStateOf<LocalTime?>(state.value.date.toLocalTime()) }
+    var dateYear by remember { mutableStateOf("${state.value.date.year}") }
+    var dateMonth by remember { mutableStateOf("${state.value.date.monthNumber}") }
     var showDatePick by remember { mutableStateOf(false) }
     var showTimePick by remember { mutableStateOf(false) }
 
@@ -266,11 +270,13 @@ private fun DetailFormDate(state: MutableState<LineData>) {
                         it.toInt()
                     }
                     dateYear = "$year"
-                    date = if (date != null) {
-                        LocalDate(year = year, date!!.monthNumber, date!!.dayOfMonth)
+                    val localDate = if (date != null) {
+                        LocalDate(year = year, date!!.monthNumber, 1)
                     } else {
                         LocalDate(year = year, 1, 1)
                     }
+                    date = localDate.plus(1, DateTimeUnit.MONTH).minus(1, DateTimeUnit.DAY)
+                    time = LocalTime(23, 59, 59, 999_999_999)
                 },
                 placeholder = { Text("Year", color = Color.Gray) },
                 singleLine = true,
@@ -294,11 +300,13 @@ private fun DetailFormDate(state: MutableState<LineData>) {
                         it.toInt()
                     }
                     dateMonth = "$month"
-                    date = if (date != null) {
-                        LocalDate(year = date!!.year, month, date!!.dayOfMonth)
+                    val localDate = if (date != null) {
+                        LocalDate(year = date!!.year, month, 1)
                     } else {
                         LocalDate(year = 1970, month, 1)
                     }
+                    date = localDate.plus(1, DateTimeUnit.MONTH).minus(1, DateTimeUnit.DAY)
+                    time = LocalTime(23, 59, 59, 999_999_999)
                 },
                 placeholder = { Text("Mouth", color = Color.Gray) },
                 contentPadding = contentPadding,

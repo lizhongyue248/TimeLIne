@@ -124,7 +124,7 @@ fun HomeContentItem(item: TimeData) {
     Column(
         modifier = Modifier
             .clickable {
-                GlobalStore.navigator.navigate(Route.detailPath(item.id))
+                GlobalStore.navigator.navigate(Route.detailPath(item.id, item.name))
             }
             .pointerHoverIcon(PointerIcon.Hand)
             .padding(8.dp, 4.dp, 8.dp, 0.dp),
