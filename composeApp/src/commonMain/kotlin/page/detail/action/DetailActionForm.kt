@@ -31,9 +31,12 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.PointerIcon
+import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import component.MTextField
@@ -48,6 +51,8 @@ import kotlinx.datetime.toLocalDateTime
 import model.LineData
 import model.LineDateType
 import now
+import store.AppStore
+import store.GlobalStore
 import toDateString
 import toLocalDate
 import toTImeWithoutSecondString
@@ -64,7 +69,8 @@ private val cardModifier = Modifier
 
 
 @Composable
-internal fun DetailActionForm(state: MutableState<LineData>) {
+internal fun DetailActionForm(state: MutableState<LineData>, id: String?) {
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier.padding(6.dp)
             .verticalScroll(rememberScrollState()),
@@ -114,8 +120,18 @@ internal fun DetailActionForm(state: MutableState<LineData>) {
             }
         }
         Spacer(modifier = Modifier.height(12.dp))
-        ElevatedButton(onClick = { }, modifier = Modifier.fillMaxWidth()) {
-            Text("Delete")
+        if (id != null) {
+            ElevatedButton(onClick = {
+                GlobalStore.confirmDialog(
+                    title = "Confirm delete this?",
+                    onConfirm = {
+                        AppStore.deleteLineData(id)
+                        GlobalStore.navigator.goBack()
+                    }
+                )
+            }, modifier = Modifier.fillMaxWidth().pointerHoverIcon(PointerIcon.Hand)) {
+                Text("Delete")
+            }
         }
     }
 }

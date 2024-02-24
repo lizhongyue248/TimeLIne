@@ -12,7 +12,7 @@ enum class Platform {
 
     fun isBrowser() = this == WASM
 
-    fun isAndroid() = this === ANDROID
+    fun isAndroid() = this == ANDROID
 }
 
 expect fun getPlatform(): Platform

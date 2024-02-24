@@ -28,7 +28,7 @@ import store.Route.Companion.detailAction
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun DetailPage(
-    id: String,
+    timeId: String,
     title: @Composable () -> Unit,
 ) {
     Scaffold(
@@ -62,13 +62,13 @@ fun DetailPage(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { GlobalStore.navigator.navigate(detailAction(timeId = id)) },
+                onClick = { GlobalStore.navigator.navigate(detailAction(timeId = timeId)) },
                 modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
             ) {
                 Icon(Icons.Outlined.Add, "Localized description")
             }
         },
     ) { paddingValues ->
-        DetailContent(id, paddingValues)
+        DetailContent(timeId, paddingValues)
     }
 }

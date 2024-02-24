@@ -68,7 +68,7 @@ fun App(
                     route = Route.DETAIL,
                 ) { backStackEntry ->
                     DetailPage(
-                        id = backStackEntry.path<String>("id")!!,
+                        timeId = backStackEntry.path<String>("id")!!,
                         title = { title("Settings") }
                     )
                 }

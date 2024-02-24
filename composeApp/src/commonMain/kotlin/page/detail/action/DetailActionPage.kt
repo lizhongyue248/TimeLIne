@@ -79,7 +79,11 @@ fun DetailActionPage(
                 actions = {
                     TextButton(
                         onClick = {
-                            AppStore.addLineData(state.value, coroutineScope)
+                            if (id == null) {
+                                AppStore.addLineData(state.value, coroutineScope)
+                            } else {
+                                AppStore.editLineData(state.value, coroutineScope)
+                            }
                             GlobalStore.navigator.goBack()
                         },
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
@@ -94,7 +98,7 @@ fun DetailActionPage(
             modifier = Modifier.consumeWindowInsets(paddingValues).padding(8.dp).fillMaxWidth(),
             contentAlignment = Alignment.TopCenter
         ) {
-            DetailActionForm(state)
+            DetailActionForm(state, id)
         }
     }
 }

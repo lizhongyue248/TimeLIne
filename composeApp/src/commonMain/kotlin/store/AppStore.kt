@@ -70,7 +70,7 @@ object AppStore {
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
         val list = state.timeList.toMutableList()
-        val index = list.indexOfFirst { it.id === id }
+        val index = list.indexOfFirst { it.id == id }
         if (index < 0) {
             Logger.w { "Can not find time data $id, delete error." }
             coroutineScope.launch {
@@ -94,7 +94,7 @@ object AppStore {
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
         val list = state.timeList.toMutableList()
-        val index = list.indexOfFirst { it.id === id }
+        val index = list.indexOfFirst { it.id == id }
         if (index < 0) {
             Logger.w { "Can not find time data $id, update error." }
             coroutineScope.launch {
@@ -123,5 +123,42 @@ object AppStore {
         coroutineScope.launch {
             GlobalStore.snackbar.showSnackbar("Add Success", withDismissAction = true)
         }
+    }
+
+    fun editLineData(
+        data: LineData,
+        coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    ) {
+        val list = state.lineList.toMutableList()
+        val index = list.indexOfFirst { it.id == data.id }
+        if (index < 0) {
+            Logger.w { "Can not find time data ${data.id}, update error." }
+            coroutineScope.launch {
+                GlobalStore.snackbar.showSnackbar(
+                    "Can not find time data ${data.id}, update error.",
+                    withDismissAction = true
+                )
+            }
+            return
+        }
+        list.removeAt(index)
+        list.add(index, data)
+        setState { state.copy(lineList = list) }
+        coroutineScope.launch {
+            GlobalStore.snackbar.showSnackbar("Update Success", withDismissAction = true)
+        }
+    }
+
+    fun deleteLineData(
+        id: String
+    ) {
+        val list = state.lineList.toMutableList()
+        val index = list.indexOfFirst { it.id == id }
+        if (index < 0) {
+            Logger.w { "Can not find time data $id, delete error." }
+            return
+        }
+        list.removeAt(index)
+        setState { state.copy(lineList = list) }
     }
 }
