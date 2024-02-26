@@ -1,16 +1,16 @@
 package state
 
 import kotlinx.serialization.Serializable
-import model.LineData
-import model.LineDateType
-import model.TimeData
+import model.Event
+import model.EventType
+import model.Period
 
 @Serializable
 data class ApplicationState(
-    val timeList: List<TimeData>,
-    val lineList: List<LineData>
+    val timeList: List<Period>,
+    val lineList: List<Event>
 ) {
-    val timeLineData: Map<String, Map<Int, List<LineData>>>
+    val timeEvent: Map<String, Map<Int, List<Event>>>
         get() = lineList.groupBy { it.timeId }
             .mapValues { item ->
                 item.value
@@ -18,9 +18,9 @@ data class ApplicationState(
                     .mapValues { (_, list) ->
                         val sortedList = list.sortedWith(compareByDescending { it.date })
                         val dateYearList = sortedList
-                            .filter { it.dateType == LineDateType.DATE_YEAR }
+                            .filter { it.dateType == EventType.DATE_YEAR }
                             .sortedByDescending { it.createDate }
-                        dateYearList + sortedList.filter { it.dateType != LineDateType.DATE_YEAR }
+                        dateYearList + sortedList.filter { it.dateType != EventType.DATE_YEAR }
                     }
             }
 

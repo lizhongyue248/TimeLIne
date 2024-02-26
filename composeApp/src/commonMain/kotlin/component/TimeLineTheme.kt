@@ -2,7 +2,6 @@ package component
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import ui.TimeLineColorDarkThreeTokens
 import ui.TimeLineColorDarkTwoTokens
 import ui.TimeLineColorLightTwoTokens
 
@@ -11,7 +10,7 @@ fun TimeLineTheme(
     darkTheme: Boolean = false,
     content: @Composable() () -> Unit
 ) {
-    val colors = TimeLineColorDarkThreeTokens()
+    val colors = TimeLineColorLightTwoTokens()
     MaterialTheme(
         colorScheme = colors,
         content = content,

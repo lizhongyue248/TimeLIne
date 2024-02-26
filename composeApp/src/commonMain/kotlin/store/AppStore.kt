@@ -9,8 +9,8 @@ import expect.getStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import model.LineData
-import model.TimeData
+import model.Event
+import model.Period
 import now
 import state.ApplicationState
 import state.ConfigurationState
@@ -56,7 +56,7 @@ object AppStore {
         name: String,
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
-        val data = TimeData(name = name, id = uuid4().toString())
+        val data = Period(name = name, id = uuid4().toString())
         val list = state.timeList.toMutableList()
         list.add(0, data)
         setState { state.copy(timeList = list) }
@@ -114,7 +114,7 @@ object AppStore {
     }
 
     fun addLineData(
-        data: LineData,
+        data: Event,
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
         val list = state.lineList.toMutableList()
@@ -126,7 +126,7 @@ object AppStore {
     }
 
     fun editLineData(
-        data: LineData,
+        data: Event,
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
         val list = state.lineList.toMutableList()

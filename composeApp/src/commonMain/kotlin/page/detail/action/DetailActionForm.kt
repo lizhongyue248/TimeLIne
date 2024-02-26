@@ -52,8 +52,8 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
-import model.LineData
-import model.LineDateType
+import model.Event
+import model.EventType
 import now
 import store.AppStore
 import store.GlobalStore
@@ -76,7 +76,7 @@ private val cardModifier = Modifier
 @Composable
 internal fun DetailActionForm(
     paddingValues: PaddingValues,
-    state: MutableState<LineData>,
+    state: MutableState<Event>,
     id: String?
 ) {
     Column(
@@ -148,7 +148,7 @@ internal fun DetailActionForm(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DetailFormDate(state: MutableState<LineData>) {
+private fun DetailFormDate(state: MutableState<Event>) {
     var date by remember { mutableStateOf<LocalDate?>(state.value.date.toLocalDate()) }
     var time by remember { mutableStateOf<LocalTime?>(state.value.date.toLocalTime()) }
     var dateYear by remember { mutableStateOf("${state.value.date.year}") }
@@ -157,7 +157,7 @@ private fun DetailFormDate(state: MutableState<LineData>) {
     var showTimePick by remember { mutableStateOf(false) }
 
     when (state.value.dateType) {
-        LineDateType.DATE_TIME -> {
+        EventType.DATE_TIME -> {
             MTextField(
                 modifier = Modifier.fillMaxWidth().height(42.dp),
                 placeholder = { Text("Date", color = Color.Gray) },
@@ -204,7 +204,7 @@ private fun DetailFormDate(state: MutableState<LineData>) {
             )
         }
 
-        LineDateType.DATE -> MTextField(
+        EventType.DATE -> MTextField(
             modifier = Modifier.fillMaxWidth().height(42.dp),
             placeholder = { Text("Date", color = Color.Gray) },
             onClick = { showDatePick = true },
@@ -227,7 +227,7 @@ private fun DetailFormDate(state: MutableState<LineData>) {
             }
         )
 
-        LineDateType.DATE_YEAR -> {
+        EventType.DATE_YEAR -> {
             MTextField(
                 value = dateYear,
                 modifier = Modifier.fillMaxWidth().height(42.dp),
@@ -258,7 +258,7 @@ private fun DetailFormDate(state: MutableState<LineData>) {
             )
         }
 
-        LineDateType.DATE_YEAR_MOUTH -> {
+        EventType.DATE_YEAR_MOUTH -> {
             MTextField(
                 value = dateYear,
                 modifier = Modifier.fillMaxWidth().height(42.dp),

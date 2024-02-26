@@ -29,15 +29,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import component.NoDataPage
-import model.LineData
-import model.LineDateType
+import model.Event
+import model.EventType
 import store.AppStore
 import store.GlobalStore
 import store.Route
 
 @Composable
 fun DetailContent(timeId: String, innerPadding: PaddingValues) {
-    val data = AppStore.state.timeLineData[timeId] ?: emptyMap()
+    val data = AppStore.state.timeEvent[timeId] ?: emptyMap()
     if (data.isEmpty()) {
         NoDataPage()
         return
@@ -86,7 +86,7 @@ fun DetailContent(timeId: String, innerPadding: PaddingValues) {
 }
 
 @Composable
-fun LineDataItem(index: Int, lineDataIndex: Int, timeId: String, item: LineData) {
+fun LineDataItem(index: Int, lineDataIndex: Int, timeId: String, item: Event) {
     Column(
         modifier = Modifier
             .padding(top = if (index != 0 && lineDataIndex == 0) 16.dp else 0.dp)
@@ -109,7 +109,7 @@ fun LineDataItem(index: Int, lineDataIndex: Int, timeId: String, item: LineData)
         if (item.description?.isNotBlank() == true) {
             Text(item.description!!, color = Color.LightGray, fontSize = 12.sp, lineHeight = 18.sp)
         }
-        if (LineDateType.DATE_YEAR != item.dateType) {
+        if (EventType.DATE_YEAR != item.dateType) {
             Text(
                 item.formatDateTime(),
                 color = Color.LightGray,
@@ -120,10 +120,10 @@ fun LineDataItem(index: Int, lineDataIndex: Int, timeId: String, item: LineData)
     }
 }
 
-private fun LineData.formatDateTime(): String =
+private fun Event.formatDateTime(): String =
     when (dateType) {
-        LineDateType.DATE_YEAR -> ""
-        LineDateType.DATE_YEAR_MOUTH -> "${date.year}-${date.monthNumber}"
-        LineDateType.DATE -> "${date.year}-${date.monthNumber}-${date.dayOfMonth}"
-        LineDateType.DATE_TIME -> "${date.year}-${date.monthNumber}-${date.dayOfMonth} ${date.hour}:${date.minute}:${date.second}"
+        EventType.DATE_YEAR -> ""
+        EventType.DATE_YEAR_MOUTH -> "${date.year}-${date.monthNumber}"
+        EventType.DATE -> "${date.year}-${date.monthNumber}-${date.dayOfMonth}"
+        EventType.DATE_TIME -> "${date.year}-${date.monthNumber}-${date.dayOfMonth} ${date.hour}:${date.minute}:${date.second}"
     }

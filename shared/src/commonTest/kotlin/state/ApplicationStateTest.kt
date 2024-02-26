@@ -2,8 +2,8 @@ package state
 
 import com.benasher44.uuid.uuid4
 import kotlinx.datetime.LocalDateTime
-import model.LineData
-import model.LineDateType
+import model.Event
+import model.EventType
 import kotlin.test.Test
 
 class ApplicationStateTest {
@@ -13,36 +13,36 @@ class ApplicationStateTest {
         ApplicationState(
             timeList = emptyList(),
             lineList = listOf(
-                LineData(
+                Event(
                     uuid4().toString(),
                     "1",
                     "test1",
                     "description",
-                    dateType = LineDateType.DATE,
+                    dateType = EventType.DATE,
                     date = LocalDateTime(2024, 1, 1, 11, 1)
                 ),
-                LineData(
+                Event(
                     uuid4().toString(),
                     "1",
                     "test1",
                     "description",
-                    dateType = LineDateType.DATE_YEAR,
+                    dateType = EventType.DATE_YEAR,
                     date = LocalDateTime(2024, 1, 1, 11, 1)
                 ),
-                LineData(
+                Event(
                     uuid4().toString(),
                     "1",
                     "test1",
                     "description",
-                    dateType = LineDateType.DATE_YEAR_MOUTH,
+                    dateType = EventType.DATE_YEAR_MOUTH,
                     date = LocalDateTime(2024, 1, 1, 11, 1)
                 ),
-                LineData(
+                Event(
                     uuid4().toString(),
                     "1",
                     "test1",
                     "description",
-                    dateType = LineDateType.DATE_TIME,
+                    dateType = EventType.DATE_TIME,
                     date = LocalDateTime(2024, 1, 1, 11, 1)
                 ),
             )

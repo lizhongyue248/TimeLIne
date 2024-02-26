@@ -24,7 +24,7 @@ import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import com.benasher44.uuid.uuid4
-import model.LineData
+import model.Event
 import store.AppStore
 import store.GlobalStore
 
@@ -38,7 +38,7 @@ fun DetailActionPage(
     val state = remember {
         mutableStateOf(
             AppStore.state.lineList.find { it.id == (id ?: "") }
-                ?: LineData(
+                ?: Event(
                     id = uuid4().toString(),
                     name = "",
                     description = "",

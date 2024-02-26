@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 import now
 
 @Serializable
-data class TimeData(
+data class Period(
     val id: String,
     val name: String,
     val createDate: LocalDateTime = now(),

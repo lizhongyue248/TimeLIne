@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.sp
 import component.swipe.DragAnchors
 import component.swipe.DraggableItem
 import kotlinx.coroutines.launch
-import model.TimeData
+import model.Period
 import store.AppStore
 import store.GlobalStore
 import store.Route
@@ -120,7 +120,7 @@ fun HomeContent(innerPadding: PaddingValues) {
 }
 
 @Composable
-fun HomeContentItem(item: TimeData) {
+fun HomeContentItem(item: Period) {
     Column(
         modifier = Modifier
             .clickable {
