@@ -3,12 +3,12 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import co.touchlab.kermit.Logger
 import component.PageTitle
+import component.TimeLineTheme
 import expect.listLogWriter
 import moe.tlaster.precompose.PreComposeApp
 import moe.tlaster.precompose.navigation.NavHost
@@ -44,7 +44,8 @@ fun App(
     Logger.setLogWriters(listLogWriter())
     Logger.setTag("app")
     PreComposeApp {
-        MaterialTheme {
+        TimeLineTheme(
+        ) {
             NavHost(
                 navigator = GlobalStore.navigator,
                 initialRoute = Route.HOME,
