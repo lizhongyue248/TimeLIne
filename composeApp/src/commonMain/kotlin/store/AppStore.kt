@@ -52,54 +52,54 @@ object AppStore {
         setConfiguration { configuration.copy(name = name) }
     }
 
-    fun addTimeData(
+    fun addPeriodData(
         name: String,
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
         val data = Period(name = name, id = uuid4().toString())
-        val list = state.timeList.toMutableList()
+        val list = state.periodList.toMutableList()
         list.add(0, data)
-        setState { state.copy(timeList = list) }
+        setState { state.copy(periodList = list) }
         coroutineScope.launch {
-            GlobalStore.snackbar.showSnackbar("Add Success", withDismissAction = true)
+            GlobalStore.snackbar.showSnackbar("Add period Success", withDismissAction = true)
         }
     }
 
-    fun deleteTimeData(
+    fun deletePeriodData(
         id: String,
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
-        val list = state.timeList.toMutableList()
+        val list = state.periodList.toMutableList()
         val index = list.indexOfFirst { it.id == id }
         if (index < 0) {
-            Logger.w { "Can not find time data $id, delete error." }
+            Logger.w { "Can not find period data $id, delete error." }
             coroutineScope.launch {
                 GlobalStore.snackbar.showSnackbar(
-                    "Can not find time data $id, delete error.",
+                    "Can not find period data $id, delete error.",
                     withDismissAction = true
                 )
             }
             return
         }
         list.removeAt(index)
-        setState { state.copy(timeList = list) }
+        setState { state.copy(periodList = list) }
         coroutineScope.launch {
-            GlobalStore.snackbar.showSnackbar("Delete Success", withDismissAction = true)
+            GlobalStore.snackbar.showSnackbar("Delete period Success", withDismissAction = true)
         }
     }
 
-    fun editTimeData(
+    fun editPeriodData(
         id: String,
         name: String,
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
-        val list = state.timeList.toMutableList()
+        val list = state.periodList.toMutableList()
         val index = list.indexOfFirst { it.id == id }
         if (index < 0) {
-            Logger.w { "Can not find time data $id, update error." }
+            Logger.w { "Can not find period data $id, update error." }
             coroutineScope.launch {
                 GlobalStore.snackbar.showSnackbar(
-                    "Can not find time data $id, update error.",
+                    "Can not find period data $id, update error.",
                     withDismissAction = true
                 )
             }
@@ -107,35 +107,35 @@ object AppStore {
         }
         val item = list.removeAt(index).copy(name = name, updateDate = now())
         list.add(index, item)
-        setState { state.copy(timeList = list) }
+        setState { state.copy(periodList = list) }
         coroutineScope.launch {
-            GlobalStore.snackbar.showSnackbar("Update Success", withDismissAction = true)
+            GlobalStore.snackbar.showSnackbar("Update period success", withDismissAction = true)
         }
     }
 
-    fun addLineData(
+    fun addEventData(
         data: Event,
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
-        val list = state.lineList.toMutableList()
+        val list = state.eventList.toMutableList()
         list.add(0, data)
-        setState { state.copy(lineList = list) }
+        setState { state.copy(eventList = list) }
         coroutineScope.launch {
-            GlobalStore.snackbar.showSnackbar("Add Success", withDismissAction = true)
+            GlobalStore.snackbar.showSnackbar("Add event success", withDismissAction = true)
         }
     }
 
-    fun editLineData(
+    fun editEventData(
         data: Event,
         coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
     ) {
-        val list = state.lineList.toMutableList()
+        val list = state.eventList.toMutableList()
         val index = list.indexOfFirst { it.id == data.id }
         if (index < 0) {
-            Logger.w { "Can not find time data ${data.id}, update error." }
+            Logger.w { "Can not find event data ${data.id}, update error." }
             coroutineScope.launch {
                 GlobalStore.snackbar.showSnackbar(
-                    "Can not find time data ${data.id}, update error.",
+                    "Can not find event data ${data.id}, update error.",
                     withDismissAction = true
                 )
             }
@@ -143,22 +143,22 @@ object AppStore {
         }
         list.removeAt(index)
         list.add(index, data)
-        setState { state.copy(lineList = list) }
+        setState { state.copy(eventList = list) }
         coroutineScope.launch {
             GlobalStore.snackbar.showSnackbar("Update Success", withDismissAction = true)
         }
     }
 
-    fun deleteLineData(
+    fun deleteEventData(
         id: String
     ) {
-        val list = state.lineList.toMutableList()
+        val list = state.eventList.toMutableList()
         val index = list.indexOfFirst { it.id == id }
         if (index < 0) {
-            Logger.w { "Can not find time data $id, delete error." }
+            Logger.w { "Can not find event data $id, delete error." }
             return
         }
         list.removeAt(index)
-        setState { state.copy(lineList = list) }
+        setState { state.copy(eventList = list) }
     }
 }

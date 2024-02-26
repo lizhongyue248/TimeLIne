@@ -3,6 +3,7 @@ package store
 class Route {
     companion object {
         const val HOME = "/home"
+        const val PERIOD = "/period"
         const val SETTING = "/setting"
         const val DETAIL = "/detail/{id}/{name}"
         const val DETAIL_ACTION = "/detailAction/{timeId}/{id}?"

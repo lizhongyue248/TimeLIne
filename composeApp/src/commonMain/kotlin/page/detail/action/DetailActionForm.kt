@@ -135,7 +135,7 @@ internal fun DetailActionForm(
                 GlobalStore.confirmDialog(
                     title = "Confirm delete this?",
                     onConfirm = {
-                        AppStore.deleteLineData(id)
+                        AppStore.deleteEventData(id)
                         GlobalStore.navigator.goBack()
                     }
                 )

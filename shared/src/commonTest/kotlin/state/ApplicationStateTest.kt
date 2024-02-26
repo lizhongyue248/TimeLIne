@@ -11,8 +11,8 @@ class ApplicationStateTest {
     @Test
     fun filterTimeLineDataOrderTest() {
         ApplicationState(
-            timeList = emptyList(),
-            lineList = listOf(
+            periodList = emptyList(),
+            eventList = listOf(
                 Event(
                     uuid4().toString(),
                     "1",

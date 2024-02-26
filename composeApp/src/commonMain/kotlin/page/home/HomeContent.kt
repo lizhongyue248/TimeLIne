@@ -74,13 +74,13 @@ fun HomeContent(innerPadding: PaddingValues) {
             .nestedScroll(nestedScrollConnection),
         contentPadding = innerPadding
     ) {
-        itemsIndexed(AppStore.state.timeList) { _, it ->
+        itemsIndexed(AppStore.state.periodList) { _, it ->
             DraggableItem(
                 onDelete = {
                     GlobalStore.confirmDialog(
                         text = "Do you confirm remove ${it.name} ?",
                         onConfirm = {
-                            AppStore.deleteTimeData(it.id, coroutineScope)
+                            AppStore.deletePeriodData(it.id, coroutineScope)
                         }
                     )
                 },
@@ -114,7 +114,7 @@ fun HomeContent(innerPadding: PaddingValues) {
             editName.value,
             onDismissRequest = { editDialog.value = false },
             onConfirmation = { name ->
-                AppStore.editTimeData(editId.value, name, coroutineScope)
+                AppStore.editPeriodData(editId.value, name, coroutineScope)
             })
     }
 }

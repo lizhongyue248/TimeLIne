@@ -17,6 +17,7 @@ import moe.tlaster.precompose.navigation.transition.NavTransition
 import page.detail.DetailPage
 import page.detail.action.DetailActionPage
 import page.home.HomePage
+import page.period.PeriodPage
 import page.setting.SettingPage
 import store.GlobalStore
 import store.Route
@@ -48,9 +49,14 @@ fun App(
         ) {
             NavHost(
                 navigator = GlobalStore.navigator,
-                initialRoute = Route.HOME,
+                initialRoute = Route.PERIOD,
                 navTransition = NavFadeTransition()
             ) {
+                scene(
+                    route = Route.PERIOD,
+                ) {
+                    PeriodPage()
+                }
                 scene(
                     route = Route.HOME,
                 ) {

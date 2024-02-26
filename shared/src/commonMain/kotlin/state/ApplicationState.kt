@@ -7,11 +7,11 @@ import model.Period
 
 @Serializable
 data class ApplicationState(
-    val timeList: List<Period>,
-    val lineList: List<Event>
+    val periodList: List<Period>,
+    val eventList: List<Event>
 ) {
     val timeEvent: Map<String, Map<Int, List<Event>>>
-        get() = lineList.groupBy { it.timeId }
+        get() = eventList.groupBy { it.timeId }
             .mapValues { item ->
                 item.value
                     .groupBy { it.date.year }

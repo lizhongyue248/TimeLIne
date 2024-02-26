@@ -37,7 +37,7 @@ fun DetailActionPage(
 ) {
     val state = remember {
         mutableStateOf(
-            AppStore.state.lineList.find { it.id == (id ?: "") }
+            AppStore.state.eventList.find { it.id == (id ?: "") }
                 ?: Event(
                     id = uuid4().toString(),
                     name = "",
@@ -76,9 +76,9 @@ fun DetailActionPage(
                     TextButton(
                         onClick = {
                             if (id == null) {
-                                AppStore.addLineData(state.value, coroutineScope)
+                                AppStore.addEventData(state.value, coroutineScope)
                             } else {
-                                AppStore.editLineData(state.value, coroutineScope)
+                                AppStore.editEventData(state.value, coroutineScope)
                             }
                             GlobalStore.navigator.goBack()
                         },

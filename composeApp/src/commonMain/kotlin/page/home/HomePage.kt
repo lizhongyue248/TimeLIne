@@ -86,7 +86,7 @@ fun HomePage(
         HomeActionDialog(
             onDismissRequest = { addDialog.value = false },
             onConfirmation = {
-                AppStore.addTimeData(it)
+                AppStore.addPeriodData(it)
             }
         )
     }
