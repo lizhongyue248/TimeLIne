@@ -8,10 +8,13 @@ import expect.Platform
 import expect.getPlatform
 import moe.tlaster.precompose.navigation.Navigator
 import state.AlertState
+import state.PeriodDialogState
 
 object GlobalStore {
     val navigator = Navigator()
     var alert by mutableStateOf(AlertState())
+        private set
+    var periodDialog by mutableStateOf(PeriodDialogState())
         private set
 
     var snackbar = SnackbarHostState()
@@ -19,6 +22,10 @@ object GlobalStore {
 
     private inline fun setAlert(update: AlertState.() -> AlertState) {
         alert = alert.update()
+    }
+
+    private inline fun setPeriodDialog(update: PeriodDialogState.() -> PeriodDialogState) {
+        periodDialog = periodDialog.update()
     }
 
     fun trigger() {
@@ -40,4 +47,25 @@ object GlobalStore {
         }
     }
 
+    fun periodEditDialog(
+        name: String = "",
+        onConfirmation: (String) -> Unit = {},
+    ) {
+        setPeriodDialog {
+            periodDialog.copy(
+                name,
+                visible = !visible,
+                onDismissRequest = { GlobalStore.periodEditDialogHidden() },
+                onConfirmation
+            )
+        }
+    }
+
+    private fun periodEditDialogHidden() {
+        setPeriodDialog {
+            periodDialog.copy(
+                visible = false,
+            )
+        }
+    }
 }

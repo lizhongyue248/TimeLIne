@@ -8,6 +8,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import co.touchlab.kermit.Logger
 import component.PageTitle
+import component.PeriodActionDialog
 import component.TimeLineTheme
 import expect.listLogWriter
 import moe.tlaster.precompose.PreComposeApp
@@ -99,6 +100,9 @@ fun App(
             }
             if (GlobalStore.alert.visible) {
                 AppConfirmDialog()
+            }
+            if (GlobalStore.periodDialog.visible) {
+                PeriodActionDialog()
             }
         }
     }

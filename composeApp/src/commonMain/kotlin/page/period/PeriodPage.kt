@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreHoriz
@@ -38,7 +37,6 @@ import timeline.composeapp.generated.resources.Res
 @Composable
 @OptIn(ExperimentalResourceApi::class)
 fun PeriodPage() {
-
     Scaffold(
         modifier = Modifier,
         topBar = {
@@ -96,7 +94,7 @@ fun PeriodPage() {
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.AccountCircle,
+                            painter = painterResource(Res.drawable.fill_account),
                             contentDescription = "Account",
                             modifier = Modifier.size(32.dp),
                             tint = Color.LightGray
@@ -119,7 +117,7 @@ fun PeriodPage() {
                     Icon(
                         imageVector = Icons.Filled.Add,
                         contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onPrimary,
+                        tint = MaterialTheme.colorScheme.inverseOnSurface,
                         modifier = Modifier.size(48.dp)
                     )
                 }
