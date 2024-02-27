@@ -7,7 +7,7 @@ import androidx.compose.ui.graphics.Color
 fun TimeLineColorLightTwoTokens(
     primary:Color= Color(0xFFBF0026),
     onPrimary:Color= Color(0xFFFFFFFF),
-    primaryContainer:Color= Color(0xFFFFDAD8),
+    primaryContainer:Color= Color(0xFFFFFFFF),
     onPrimaryContainer:Color= Color(0xFF410006),
     secondary:Color= Color(0xFF775655),
     onSecondary:Color= Color(0xFFFFFFFF),
@@ -15,15 +15,15 @@ fun TimeLineColorLightTwoTokens(
     onSecondaryContainer:Color= Color(0xFF2C1514),
     tertiary:Color= Color(0xFF745A2E),
     onTertiary:Color= Color(0xFFFFFFFF),
-    tertiaryContainer:Color= Color(0xFFFFDEAB),
+    tertiaryContainer:Color= Color(0xFF6194F7),
     onTertiaryContainer:Color= Color(0xFF271900),
     error:Color= Color(0xFFBA1A1A),
     errorContainer:Color= Color(0xFFFFDAD6),
     onError:Color= Color(0xFFFFFFFF),
     onErrorContainer:Color= Color(0xFF410002),
-    background:Color= Color(0xF2F2F2FF),
+    background:Color= Color(0xFFFFFFFF),
     onBackground:Color= Color(0xFF201A1A),
-    surface:Color= Color(0xF2F2F2FF),
+    surface:Color= Color(0xFFFFFFFF),
     onSurface:Color= Color(0xFF201A1A),
     surfaceVariant:Color= Color(0xFFF4DDDC),
     onSurfaceVariant:Color= Color(0xFF524342),
@@ -32,10 +32,9 @@ fun TimeLineColorLightTwoTokens(
     inverseSurface:Color= Color(0xFF362F2E),
     inversePrimary:Color= Color(0xFFFFB3B0),
     shadow:Color= Color(0xFF000000),
-    surfaceTint:Color= Color(0xFFBF0026),
+    surfaceTint:Color= Color(0xFFFFFFFF),
     outlineVariant:Color= Color(0xFFD7C1C0),
     scrim:Color= Color(0xFF000000)
-
 ) =
     ColorScheme(
         primary = primary,

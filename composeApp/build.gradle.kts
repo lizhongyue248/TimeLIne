@@ -59,7 +59,7 @@ kotlin {
             api(compose.materialIconsExtended)
             api(compose.uiUtil)
             api(compose.ui)
-            api(compose.components.resources)
+            implementation(compose.components.resources)
             api(projects.shared)
             api(libs.pre.compose)
         }

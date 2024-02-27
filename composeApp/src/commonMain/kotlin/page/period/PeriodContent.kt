@@ -6,23 +6,25 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.EventBusy
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -33,12 +35,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import component.dashedBorder
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
+import store.AppStore
+import timeline.composeapp.generated.resources.Res
+import toDateString
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun PeriodContent(innerPadding: PaddingValues) {
     Column(
@@ -51,36 +62,37 @@ fun PeriodContent(innerPadding: PaddingValues) {
             modifier = Modifier
                 .padding(horizontal = 24.dp)
                 .height(IntrinsicSize.Max)
-                .clip(MaterialTheme.shapes.large)
+                .clip(MaterialTheme.shapes.extraLarge)
                 .background(MaterialTheme.colorScheme.inverseSurface)
                 .border(BorderStroke(0.dp, Transparent))
                 .padding(top = 24.dp, start = 16.dp, end = 0.dp, bottom = 0.dp)
         ) {
             Box(
                 modifier = Modifier
-                    .padding(top = 12.dp)
                     .size(32.dp)
                     .clip(MaterialTheme.shapes.extraLarge)
                     .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.3f)),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Star,
+                    painter = painterResource(Res.drawable.mark),
                     contentDescription = "",
-                    modifier = Modifier.size(14.dp),
+                    modifier = Modifier.size(16.dp),
                     tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
-            Column(modifier = Modifier.padding(start = 16.dp, bottom = 28.dp).weight(1f)) {
+            Column(modifier = Modifier.padding(start = 26.dp, end = 20.dp, bottom = 28.dp).weight(1f)) {
                 Text(
                     "Get Premium!",
                     fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
                     color = MaterialTheme.colorScheme.onPrimary,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = MaterialTheme.typography.titleLarge.fontWeight
                 )
                 Text(
-                    "Get unlimited access to all our features and supports!",
-                    fontStyle = MaterialTheme.typography.titleLarge.fontStyle,
+                    "Get unlimited access to all our features!",
+                    fontStyle = MaterialTheme.typography.titleMedium.fontStyle,
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
                     color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f),
                     modifier = Modifier.padding(top = 6.dp)
                 )
@@ -93,55 +105,65 @@ fun PeriodContent(innerPadding: PaddingValues) {
                 }
                 IconButton(
                     onClick = {},
-                    modifier = Modifier.clip(MaterialTheme.shapes.large)
-                        .background(MaterialTheme.colorScheme.primaryContainer)
+                    modifier = Modifier
+                        .clip(MaterialTheme.shapes.extraLarge)
+                        .background(MaterialTheme.colorScheme.tertiaryContainer)
                         .pointerHoverIcon(PointerIcon.Hand)
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        painter = painterResource(Res.drawable.home_premium),
                         contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onPrimary,
+                        tint = MaterialTheme.colorScheme.onTertiary,
                         modifier = Modifier.size(24.dp)
                     )
                 }
             }
         }
         Column(
-            modifier = Modifier.padding(horizontal = 12.dp),
+            modifier = Modifier.padding(horizontal = 12.dp)
+                .weight(1f),
             verticalArrangement = Arrangement.Top,
         ) {
-            Text(
-                "Events",
-                modifier = Modifier.padding(start = 12.dp),
-                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.height(12.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth().padding(start = 12.dp),
+            ) {
+                Text(
+                    "Period",
+                    fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                    fontWeight = FontWeight.ExtraBold
+                )
+                IconButton(onClick = {}) {
+                    Icon(imageVector = Icons.Filled.Add, contentDescription = "")
+                }
+            }
+            Spacer(modifier = Modifier.height(6.dp))
             EventContents()
         }
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun EventContents() {
-    FlowRow(
+fun ColumnScope.EventContents() {
+    LazyVerticalGrid(
         modifier = Modifier.padding(horizontal = 12.dp),
-        maxItemsInEachRow = 2,
+        columns = GridCells.Fixed(2),
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        (0..4).forEach { _ ->
+        items(AppStore.state.periodList) { period ->
             Card(
                 shape = MaterialTheme.shapes.large,
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 6.dp
                 ),
-                modifier = Modifier
-                    .weight(0.5f)
+                modifier = Modifier.padding(bottom = 12.dp)
+                    .height(120.dp)
             ) {
                 Column(
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier.padding(12.dp).fillMaxSize(),
+                    verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -163,12 +185,47 @@ fun EventContents() {
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(24.dp))
-                    Text(
-                        "Personal",
-                        fontSize = MaterialTheme.typography.titleSmall.fontSize,
-                        fontWeight = MaterialTheme.typography.titleSmall.fontWeight,
-                        fontStyle = MaterialTheme.typography.titleSmall.fontStyle
+                    Column {
+                        Text(
+                            period.name,
+                            fontSize = MaterialTheme.typography.titleSmall.fontSize,
+                            fontWeight = MaterialTheme.typography.titleSmall.fontWeight,
+                            fontStyle = MaterialTheme.typography.titleSmall.fontStyle,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                        Row {
+                            Text(
+                                period.createDate.toDateString(),
+                                fontSize = MaterialTheme.typography.bodySmall.fontSize,
+                                fontWeight = MaterialTheme.typography.bodySmall.fontWeight,
+                                fontStyle = MaterialTheme.typography.bodySmall.fontStyle,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+
+        }
+        item {
+            Card(
+                shape = MaterialTheme.shapes.large,
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.Transparent
+                ),
+                modifier = Modifier.padding(bottom = 12.dp)
+                    .height(120.dp)
+                    .dashedBorder(1.dp, 12.dp, Color.LightGray)
+                    .pointerHoverIcon(PointerIcon.Hand)
+            ) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Add,
+                        contentDescription = ""
                     )
                 }
             }

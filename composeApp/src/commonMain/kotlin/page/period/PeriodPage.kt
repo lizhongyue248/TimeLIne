@@ -5,15 +5,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreHoriz
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -33,7 +36,7 @@ import org.jetbrains.compose.resources.painterResource
 import timeline.composeapp.generated.resources.Res
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class)
+@OptIn(ExperimentalResourceApi::class)
 fun PeriodPage() {
 
     Scaffold(
@@ -65,52 +68,59 @@ fun PeriodPage() {
             }
         },
         bottomBar = {
-            Row(
-                modifier = Modifier.fillMaxWidth()
-                    .clip(MaterialTheme.shapes.extraLarge)
-                    .background(MaterialTheme.colorScheme.onPrimary)
-                    .padding(vertical = 12.dp),
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
+            ElevatedCard(
+                modifier = Modifier.fillMaxWidth().height(68.dp),
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 20.dp
+                ),
+                shape = MaterialTheme.shapes.extraLarge.copy(bottomEnd = CornerSize(0.dp), bottomStart = CornerSize(0.dp))
             ) {
-                IconButton(
-                    onClick = {},
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        imageVector = Icons.Filled.Home,
-                        contentDescription = "Home",
-                        modifier = Modifier.size(32.dp),
-                        tint = Color.LightGray
-                    )
-                }
-                IconButton(
-                    onClick = {},
-                    modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.AccountCircle,
-                        contentDescription = "Account",
-                        modifier = Modifier.size(32.dp),
-                        tint = Color.LightGray
-                    )
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Home,
+                            contentDescription = "Home",
+                            modifier = Modifier.size(32.dp),
+                            tint = Color.LightGray
+                        )
+                    }
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.AccountCircle,
+                            contentDescription = "Account",
+                            modifier = Modifier.size(32.dp),
+                            tint = Color.LightGray
+                        )
+                    }
                 }
             }
             Row(
                 modifier = Modifier.fillMaxWidth()
-                    .offset(y = -(32.dp)),
+                    .offset(y = -(32.dp))
+                    .pointerHoverIcon(PointerIcon.Hand),
                 horizontalArrangement = Arrangement.Center
             ) {
                 IconButton(
                     onClick = {},
-                    modifier = Modifier.size(64.dp)
+                    modifier = Modifier.size(68.dp)
                         .clip(MaterialTheme.shapes.large)
                         .background(MaterialTheme.colorScheme.inverseSurface)
                 ) {
                     Icon(
                         imageVector = Icons.Filled.Add,
                         contentDescription = "",
-                        tint = MaterialTheme.colorScheme.onPrimary
+                        tint = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier.size(48.dp)
                     )
                 }
             }

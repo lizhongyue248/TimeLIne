@@ -15,9 +15,9 @@ fun main() = application {
     val visible = remember { mutableStateOf(true) }
     val rightBottom = GraphicsEnvironment.getLocalGraphicsEnvironment().maximumWindowBounds.rightBottom
     val dialogState = rememberDialogState(
-        width = 420.dp,
-        height = 700.dp,
-        position = WindowPosition((rightBottom.x - 420).dp, (rightBottom.y - 700).dp)
+        width = 380.dp,
+        height = 750.dp,
+        position = WindowPosition((rightBottom.x - 380).dp, (rightBottom.y - 750).dp)
     )
 
     MDialogWindow(
