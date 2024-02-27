@@ -1,6 +1,7 @@
 package page.period
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -26,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.EventBusy
+import androidx.compose.material.icons.filled.MoreHoriz
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -57,11 +59,34 @@ import toDateString
 @Composable
 fun PeriodContent(innerPadding: PaddingValues) {
     val coroutineScope = rememberCoroutineScope()
-
     Column(
         modifier = Modifier.consumeWindowInsets(innerPadding).fillMaxWidth().padding(innerPadding),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
+        Row(
+            modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 0.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Image(
+                painter = painterResource(Res.drawable.test_pic),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(50.dp)
+                    .clip(MaterialTheme.shapes.medium)
+            )
+            Text(
+                "Welcome",
+                modifier = Modifier.weight(1f).padding(start = 12.dp),
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
+                fontWeight = FontWeight.ExtraBold
+            )
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Filled.MoreHoriz,
+                    contentDescription = "More action"
+                )
+            }
+        }
         Row(
             modifier = Modifier.padding(horizontal = 24.dp).height(IntrinsicSize.Max)
                 .clip(MaterialTheme.shapes.extraLarge)
