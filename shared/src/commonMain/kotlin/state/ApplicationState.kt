@@ -10,7 +10,7 @@ data class ApplicationState(
     val periodList: List<Period>,
     val eventList: List<Event>
 ) {
-    val timeEvent: Map<String, Map<Int, List<Event>>>
+    val periodEvent: Map<String, Map<Int, List<Event>>>
         get() = eventList.groupBy { it.timeId }
             .mapValues { item ->
                 item.value

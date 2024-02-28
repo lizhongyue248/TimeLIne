@@ -12,6 +12,7 @@ import state.PeriodDialogState
 
 object GlobalStore {
     val navigator = Navigator()
+    val layoutNavigator = Navigator()
     var alert by mutableStateOf(AlertState())
         private set
     var periodDialog by mutableStateOf(PeriodDialogState())

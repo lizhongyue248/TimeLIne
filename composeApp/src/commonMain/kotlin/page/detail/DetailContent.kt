@@ -37,7 +37,7 @@ import store.Route
 
 @Composable
 fun DetailContent(timeId: String, innerPadding: PaddingValues) {
-    val data = AppStore.state.timeEvent[timeId] ?: emptyMap()
+    val data = AppStore.state.periodEvent[timeId] ?: emptyMap()
     if (data.isEmpty()) {
         NoDataPage()
         return

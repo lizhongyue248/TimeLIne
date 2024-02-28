@@ -1,7 +1,9 @@
-package page.period
+package layout
 
+import NavFadeTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,22 +27,52 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import moe.tlaster.precompose.navigation.NavHost
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import page.event.EventContent
+import page.period.PeriodContent
+import store.GlobalStore
+import store.Route
 import timeline.composeapp.generated.resources.Res
 
 @Composable
+fun NavLayout() {
+    NavWrapper {paddingValues ->
+        NavHost(
+            navigator = GlobalStore.layoutNavigator,
+            initialRoute = Route.PERIOD,
+            navTransition = NavFadeTransition()
+        ) {
+            scene(
+                route = Route.PERIOD,
+            ) {
+                PeriodContent(paddingValues)
+            }
+            scene(
+                route = Route.EVENT,
+            ) {
+                EventContent(paddingValues)
+            }
+        }
+    }
+}
+
+
 @OptIn(ExperimentalResourceApi::class)
-fun PeriodPage() {
+@Composable
+private fun NavWrapper(content: @Composable (PaddingValues) -> Unit = {}) {
     Scaffold(
         modifier = Modifier,
+
         bottomBar = {
             ElevatedCard(
                 modifier = Modifier.fillMaxWidth().height(68.dp),
                 elevation = CardDefaults.cardElevation(
                     defaultElevation = 20.dp
                 ),
-                shape = MaterialTheme.shapes.extraLarge.copy(bottomEnd = CornerSize(0.dp), bottomStart = CornerSize(0.dp))
+                shape = MaterialTheme.shapes.extraLarge
+                    .copy(bottomEnd = CornerSize(0.dp), bottomStart = CornerSize(0.dp))
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -78,7 +110,9 @@ fun PeriodPage() {
                 horizontalArrangement = Arrangement.Center
             ) {
                 IconButton(
-                    onClick = {},
+                    onClick = {
+                        GlobalStore.layoutNavigator.navigate(Route.EVENT)
+                    },
                     modifier = Modifier.size(68.dp)
                         .clip(MaterialTheme.shapes.large)
                         .background(MaterialTheme.colorScheme.inverseSurface)
@@ -92,7 +126,7 @@ fun PeriodPage() {
                 }
             }
         }
-    ) { innerPadding ->
-        PeriodContent(innerPadding)
+    ) {
+        content(it)
     }
 }
