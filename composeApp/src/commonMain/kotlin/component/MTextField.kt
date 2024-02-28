@@ -18,6 +18,7 @@ import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -784,7 +785,13 @@ fun MTextField(
     minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = TextFieldDefaults.shape,
-    colors: TextFieldColors = TextFieldDefaults.colors(),
+    colors: TextFieldColors = TextFieldDefaults.colors(
+        focusedIndicatorColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.2f),
+        unfocusedIndicatorColor = MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.2f),
+        cursorColor = MaterialTheme.colorScheme.onSecondary,
+        errorCursorColor = MaterialTheme.colorScheme.onError,
+        errorIndicatorColor = MaterialTheme.colorScheme.onSecondary,
+    ),
     contentPadding: PaddingValues =
         if (label == null) {
             TextFieldDefaults.contentPaddingWithoutLabel()

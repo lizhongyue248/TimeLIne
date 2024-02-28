@@ -42,7 +42,7 @@ fun DetailActionPage(
                     id = uuid4().toString(),
                     name = "",
                     description = "",
-                    timeId = timeId
+                    periodId = timeId
                 )
         )
     }

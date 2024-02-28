@@ -3,7 +3,7 @@ package state
 import com.benasher44.uuid.uuid4
 import kotlinx.datetime.LocalDateTime
 import model.Event
-import model.EventType
+import model.EventDateType
 import kotlin.test.Test
 
 class ApplicationStateTest {
@@ -18,7 +18,7 @@ class ApplicationStateTest {
                     "1",
                     "test1",
                     "description",
-                    dateType = EventType.DATE,
+                    dateType = EventDateType.DATE,
                     date = LocalDateTime(2024, 1, 1, 11, 1)
                 ),
                 Event(
@@ -26,7 +26,7 @@ class ApplicationStateTest {
                     "1",
                     "test1",
                     "description",
-                    dateType = EventType.DATE_YEAR,
+                    dateType = EventDateType.DATE_YEAR,
                     date = LocalDateTime(2024, 1, 1, 11, 1)
                 ),
                 Event(
@@ -34,7 +34,7 @@ class ApplicationStateTest {
                     "1",
                     "test1",
                     "description",
-                    dateType = EventType.DATE_YEAR_MOUTH,
+                    dateType = EventDateType.DATE_YEAR_MOUTH,
                     date = LocalDateTime(2024, 1, 1, 11, 1)
                 ),
                 Event(
@@ -42,7 +42,7 @@ class ApplicationStateTest {
                     "1",
                     "test1",
                     "description",
-                    dateType = EventType.DATE_TIME,
+                    dateType = EventDateType.DATE_TIME,
                     date = LocalDateTime(2024, 1, 1, 11, 1)
                 ),
             )

@@ -16,11 +16,17 @@ import state.StoreKeys
 
 object JvmStore : Store {
     private val fs = FileSystem.SYSTEM
-    private val json = Json { ignoreUnknownKeys = true }
+    @OptIn(ExperimentalSerializationApi::class)
+    private val json = Json {
+        ignoreUnknownKeys = true
+        prettyPrint = true
+        explicitNulls = false
+    }
 
     @OptIn(ExperimentalSerializationApi::class)
     override fun <T> get(key: StoreKeys, defaultValue: T, serializer: KSerializer<T>): T {
         val path = CONFIG_PATH.toPath()
+        Logger.w("Config file path $path")
         if (!fs.exists(path)) {
             return defaultValue
         }
@@ -31,7 +37,7 @@ object JvmStore : Store {
             val value = configMap[key] ?: return defaultValue
             return json.decodeFromJsonElement(serializer, value)
         } catch (e: SerializationException) {
-            Logger.w("Config file format is invalid json file.")
+            Logger.w("Config file format is invalid json file. ${e.message}")
             return defaultValue
         }
     }
@@ -49,7 +55,7 @@ object JvmStore : Store {
                     fs.source(path).buffer()
                 )
             } catch (e: SerializationException) {
-                Logger.w("Config file format is invalid json file.")
+                Logger.w("Config file format is invalid json file. ${e.message}")
                 mutableMapOf()
             }
         } else {

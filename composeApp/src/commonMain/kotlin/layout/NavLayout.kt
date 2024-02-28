@@ -21,6 +21,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,12 +29,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import moe.tlaster.precompose.navigation.NavHost
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import page.account.AccountContent
 import page.event.EventContent
 import page.period.PeriodContent
+import store.AppStore
 import store.GlobalStore
 import store.Route
 import timeline.composeapp.generated.resources.Res
@@ -71,6 +74,7 @@ fun NavLayout() {
 private fun NavWrapper(content: @Composable (PaddingValues) -> Unit = {}) {
     val currentEntry = GlobalStore.layoutNavigator.currentEntry.collectAsState(null)
     val route = currentEntry.value?.route?.route
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = Modifier,
         bottomBar = {
@@ -122,7 +126,13 @@ private fun NavWrapper(content: @Composable (PaddingValues) -> Unit = {}) {
             ) {
                 IconButton(
                     onClick = {
-                        GlobalStore.layoutNavigator.navigate(Route.EVENT)
+                        if (AppStore.state.periodList.isEmpty()) {
+                            coroutineScope.launch {
+                                GlobalStore.snackbar.showSnackbar("Please add period first!")
+                            }
+                        } else {
+                            GlobalStore.navigator.navigate(Route.eventActionPath())
+                        }
                     },
                     modifier = Modifier.size(68.dp)
                         .clip(MaterialTheme.shapes.large)

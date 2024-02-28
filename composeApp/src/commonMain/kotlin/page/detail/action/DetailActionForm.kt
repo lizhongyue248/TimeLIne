@@ -53,7 +53,7 @@ import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import model.Event
-import model.EventType
+import model.EventDateType
 import now
 import store.AppStore
 import store.GlobalStore
@@ -158,7 +158,7 @@ private fun DetailFormDate(state: MutableState<Event>) {
     var showTimePick by remember { mutableStateOf(false) }
 
     when (state.value.dateType) {
-        EventType.DATE_TIME -> {
+        EventDateType.DATE_TIME -> {
             MTextField(
                 modifier = Modifier.fillMaxWidth().height(42.dp),
                 placeholder = { Text("Date", color = Color.Gray) },
@@ -205,7 +205,7 @@ private fun DetailFormDate(state: MutableState<Event>) {
             )
         }
 
-        EventType.DATE -> MTextField(
+        EventDateType.DATE -> MTextField(
             modifier = Modifier.fillMaxWidth().height(42.dp),
             placeholder = { Text("Date", color = Color.Gray) },
             onClick = { showDatePick = true },
@@ -228,7 +228,7 @@ private fun DetailFormDate(state: MutableState<Event>) {
             }
         )
 
-        EventType.DATE_YEAR -> {
+        EventDateType.DATE_YEAR -> {
             MTextField(
                 value = dateYear,
                 modifier = Modifier.fillMaxWidth().height(42.dp),
@@ -259,7 +259,7 @@ private fun DetailFormDate(state: MutableState<Event>) {
             )
         }
 
-        EventType.DATE_YEAR_MOUTH -> {
+        EventDateType.DATE_YEAR_MOUTH -> {
             MTextField(
                 value = dateYear,
                 modifier = Modifier.fillMaxWidth().height(42.dp),

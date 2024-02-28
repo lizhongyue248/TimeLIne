@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import component.NoDataPage
 import model.Event
-import model.EventType
+import model.EventDateType
 import store.AppStore
 import store.GlobalStore
 import store.Route
@@ -109,7 +109,7 @@ fun LineDataItem(index: Int, lineDataIndex: Int, timeId: String, item: Event) {
         if (item.description?.isNotBlank() == true) {
             Text(item.description!!, color = Color.LightGray, fontSize = 12.sp, lineHeight = 18.sp)
         }
-        if (EventType.DATE_YEAR != item.dateType) {
+        if (EventDateType.DATE_YEAR != item.dateType) {
             Text(
                 item.formatDateTime(),
                 color = Color.LightGray,
@@ -122,8 +122,8 @@ fun LineDataItem(index: Int, lineDataIndex: Int, timeId: String, item: Event) {
 
 private fun Event.formatDateTime(): String =
     when (dateType) {
-        EventType.DATE_YEAR -> ""
-        EventType.DATE_YEAR_MOUTH -> "${date.year}-${date.monthNumber}"
-        EventType.DATE -> "${date.year}-${date.monthNumber}-${date.dayOfMonth}"
-        EventType.DATE_TIME -> "${date.year}-${date.monthNumber}-${date.dayOfMonth} ${date.hour}:${date.minute}:${date.second}"
+        EventDateType.DATE_YEAR -> ""
+        EventDateType.DATE_YEAR_MOUTH -> "${date.year}-${date.monthNumber}"
+        EventDateType.DATE -> "${date.year}-${date.monthNumber}-${date.dayOfMonth}"
+        EventDateType.DATE_TIME -> "${date.year}-${date.monthNumber}-${date.dayOfMonth} ${date.hour}:${date.minute}:${date.second}"
     }

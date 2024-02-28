@@ -18,6 +18,7 @@ import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.transition.NavTransition
 import page.detail.DetailPage
 import page.detail.action.DetailActionPage
+import page.event.action.EventActionPage
 import page.home.HomePage
 import page.setting.SettingPage
 import store.GlobalStore
@@ -95,6 +96,14 @@ fun App(
                             }
                         }
                     )
+                }
+                scene(
+                    route = Route.EVENT_ACTION
+                ) { backStackEntry ->
+                    val id = backStackEntry.path<String>("id")
+                    val timeId = backStackEntry.path<String>("timeId")
+                    EventActionPage(id = id, periodId = timeId)
+                        .Scaffold()
                 }
             }
             if (GlobalStore.alert.visible) {
