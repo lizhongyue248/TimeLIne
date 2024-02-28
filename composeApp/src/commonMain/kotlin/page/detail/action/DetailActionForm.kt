@@ -82,6 +82,7 @@ internal fun DetailActionForm(
     Column(
         modifier = Modifier
             .consumeWindowInsets(paddingValues)
+            .padding(paddingValues)
             .padding(12.dp)
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(6.dp)

@@ -20,6 +20,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import moe.tlaster.precompose.navigation.NavHost
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import page.account.AccountContent
 import page.event.EventContent
 import page.period.PeriodContent
 import store.GlobalStore
@@ -38,7 +40,7 @@ import timeline.composeapp.generated.resources.Res
 
 @Composable
 fun NavLayout() {
-    NavWrapper {paddingValues ->
+    NavWrapper { paddingValues ->
         NavHost(
             navigator = GlobalStore.layoutNavigator,
             initialRoute = Route.PERIOD,
@@ -54,6 +56,11 @@ fun NavLayout() {
             ) {
                 EventContent(paddingValues)
             }
+            scene(
+                route = Route.ACCOUNT
+            ) {
+                AccountContent(paddingValues)
+            }
         }
     }
 }
@@ -62,9 +69,10 @@ fun NavLayout() {
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 private fun NavWrapper(content: @Composable (PaddingValues) -> Unit = {}) {
+    val currentEntry = GlobalStore.layoutNavigator.currentEntry.collectAsState(null)
+    val route = currentEntry.value?.route?.route
     Scaffold(
         modifier = Modifier,
-
         bottomBar = {
             ElevatedCard(
                 modifier = Modifier.fillMaxWidth().height(68.dp),
@@ -80,33 +88,36 @@ private fun NavWrapper(content: @Composable (PaddingValues) -> Unit = {}) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
-                        onClick = {},
+                        onClick = {
+                            GlobalStore.layoutNavigator.navigate(Route.PERIOD)
+                        },
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Home,
                             contentDescription = "Home",
                             modifier = Modifier.size(32.dp),
-                            tint = Color.LightGray
+                            tint = if (route === Route.PERIOD) MaterialTheme.colorScheme.tertiaryContainer else Color.LightGray
                         )
                     }
                     IconButton(
-                        onClick = {},
+                        onClick = {
+                            GlobalStore.layoutNavigator.navigate(Route.ACCOUNT)
+                        },
                         modifier = Modifier.pointerHoverIcon(PointerIcon.Hand)
                     ) {
                         Icon(
                             painter = painterResource(Res.drawable.fill_account),
                             contentDescription = "Account",
                             modifier = Modifier.size(32.dp),
-                            tint = Color.LightGray
+                            tint = if (route === Route.ACCOUNT) MaterialTheme.colorScheme.tertiaryContainer else Color.LightGray
                         )
                     }
                 }
             }
             Row(
                 modifier = Modifier.fillMaxWidth()
-                    .offset(y = -(32.dp))
-                    .pointerHoverIcon(PointerIcon.Hand),
+                    .offset(y = -(32.dp)),
                 horizontalArrangement = Arrangement.Center
             ) {
                 IconButton(

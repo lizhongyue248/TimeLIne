@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
+import store.GlobalStore
+import store.Route
 
 @Composable
 fun EventContent(innerPadding: PaddingValues, timeId: String = "0") {
@@ -36,7 +36,9 @@ fun EventContent(innerPadding: PaddingValues, timeId: String = "0") {
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier.fillMaxWidth()
         ) {
-            IconButton(onClick = {}) {
+            IconButton(onClick = {
+                GlobalStore.layoutNavigator.navigate(Route.PERIOD)
+            }) {
                 Icon(
                     imageVector = Icons.Outlined.ArrowBackIosNew,
                     contentDescription = "Back",
