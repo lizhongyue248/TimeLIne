@@ -1,4 +1,4 @@
-package page.event.action
+package page.event
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -136,7 +136,7 @@ class EventActionPage(val id: String?, val periodId: String?) {
                     contentPadding = contentPadding,
                 )
                 MTextField(
-                    value = descriptionState ?: "",
+                    value = descriptionState,
                     modifier = Modifier.fillMaxWidth().height(150.dp).padding(top = 12.dp),
                     onValueChange = { descriptionState = it },
                     placeholder = {

@@ -18,6 +18,14 @@ fun LocalDateTime.toDateString(): String {
     return "${this.year}-${this.monthNumber.toTwoString()}-${this.dayOfMonth.toTwoString()}"
 }
 
+fun LocalDateTime.toTImeWithoutSecondString(): String {
+    return "${hour.toTwoString()}:${minute.toTwoString()}"
+}
+
+fun LocalDateTime.toDateWithoutYearString(): String {
+    return "${this.monthNumber.toTwoString()}-${this.dayOfMonth.toTwoString()}"
+}
+
 fun LocalDateTime.toDateTimeWithoutSecondString(): String {
     return "${toDateString()} ${hour.toTwoString()}:${minute.toTwoString()}"
 }

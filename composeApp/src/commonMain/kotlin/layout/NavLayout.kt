@@ -31,10 +31,11 @@ import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import moe.tlaster.precompose.navigation.NavHost
+import moe.tlaster.precompose.navigation.path
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import page.account.AccountContent
-import page.event.EventContent
+import page.event.EventPage
 import page.period.PeriodContent
 import store.AppStore
 import store.GlobalStore
@@ -56,8 +57,9 @@ fun NavLayout() {
             }
             scene(
                 route = Route.EVENT,
-            ) {
-                EventContent(paddingValues)
+            ) { backStackEntry ->
+                val periodId = backStackEntry.path<String>("id")!!
+                EventPage(periodId).Content(paddingValues)
             }
             scene(
                 route = Route.ACCOUNT

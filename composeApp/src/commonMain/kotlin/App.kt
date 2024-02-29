@@ -18,7 +18,7 @@ import moe.tlaster.precompose.navigation.path
 import moe.tlaster.precompose.navigation.transition.NavTransition
 import page.detail.DetailPage
 import page.detail.action.DetailActionPage
-import page.event.action.EventActionPage
+import page.event.EventActionPage
 import page.home.HomePage
 import page.setting.SettingPage
 import store.GlobalStore
