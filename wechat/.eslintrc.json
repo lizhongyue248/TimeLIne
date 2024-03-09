@@ -1,0 +1,30 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "standard-with-typescript",
+    "plugin:vue/vue3-essential"
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "parser": "@typescript-eslint/parser",
+    "jsxPragma": "React",
+    "project": "./tsconfig.json",
+    "extraFileExtensions": [".vue"],
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "vue"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "vue/multi-word-component-names": "warn",
+    "@typescript-eslint/triple-slash-reference": "off"
+  }
+}
