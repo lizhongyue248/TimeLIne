@@ -85,7 +85,12 @@ import BottomNav from '@/components/BottomNav.vue'
   padding: $content-padding;
   margin-bottom: $nav-bottom-margin;
   .account-bg {
+    // #ifdef MP-WEIXIN
     height: calc(484rpx + var(--status-bar-height));
+    // #endif
+    // #ifdef MP-QQ
+    height: calc(406rpx + var(--status-bar-height));
+    // #endif
     width: 100%;
     background: linear-gradient(120deg, #fdf5fc 0%, #f1f1fe 100%);
     position: absolute;
@@ -94,7 +99,12 @@ import BottomNav from '@/components/BottomNav.vue'
     z-index: -1;
   }
   .account-header {
+    // #ifdef MP-WEIXIN
     margin-top: 140rpx;
+    // #endif
+    // #ifdef MP-QQ
+    margin-top: 70rpx;
+    // #endif
     display: flex;
     flex-direction: column;
     .theme {

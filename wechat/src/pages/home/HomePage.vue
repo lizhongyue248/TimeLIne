@@ -52,7 +52,15 @@
 <script setup lang="ts">
 import BottomNav from '@/components/BottomNav.vue'
 import { ref } from 'vue'
-const data = ref(['艳雪要上岸', '忠强也要上岸', '中月要搞钱'])
+const data = ref([
+  '艳雪要上岸',
+  '忠强也要上岸',
+  '中月要搞钱',
+  '忠强也要上岸',
+  '中月要搞钱',
+  '忠强也要上岸',
+  '中月要搞钱'
+])
 </script>
 
 <style scoped></style>
@@ -60,7 +68,6 @@ const data = ref(['艳雪要上岸', '忠强也要上岸', '中月要搞钱'])
 <style scoped lang="scss">
 #home {
   padding: $content-padding;
-  margin-bottom: $nav-bottom-margin;
   .header {
     display: flex;
     padding-top: 96rpx;

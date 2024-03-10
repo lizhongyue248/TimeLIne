@@ -36,6 +36,7 @@
 <style scoped lang="scss">
 #detail {
   padding: $content-padding;
+  padding-bottom: var(--status-bar-height);
   display: flex;
   flex-direction: column;
   #detail-bg {

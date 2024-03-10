@@ -40,7 +40,7 @@ const switchTab = (path: string) => {
 .nav {
   width: 100%;
   background-color: #fff;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   height: 120rpx;
   box-shadow: 0rpx -4rpx 40rpx 0rpx rgba(0, 0, 0, 0.1);
