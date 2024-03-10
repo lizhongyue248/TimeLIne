@@ -197,9 +197,32 @@ import BottomNav from '@/components/BottomNav.vue'
     }
   }
 }
+@media (prefers-color-scheme: dark) {
+  #account {
+    .account-bg {
+      background: linear-gradient(120deg, #2d334b 0%, #1a1a32 100%);
+    }
+    .account-header {
+      .info {
+        .name {
+          color: white;
+        }
+      }
+    }
+    .action-card,
+    .action-list {
+      background-color: #434548;
+    }
+  }
+}
 </style>
 <style>
 page {
   background-color: #f5f5f5;
+}
+@media (prefers-color-scheme: dark) {
+  page {
+    background-color: #1a1d22;
+  }
 }
 </style>

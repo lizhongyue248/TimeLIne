@@ -35,13 +35,13 @@
         "pagePath": "pages/account/AccountPage",
         "text": "首页"
       }
-    ]
+    ],
+    "color": "#000000",
+    "selectedColor": "#32CD32",
+    "backgroundColor": "#FFFFFF"
   },
   "globalStyle": {
     "navigationStyle": "custom",
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "@bgColor"
   }
 }

@@ -127,4 +127,30 @@
     }
   }
 }
+@media (prefers-color-scheme: dark) {
+  #detail {
+    background-color: #434548;
+  }
+  .detail-content {
+    background-color: rgb(25, 25, 25);
+    .data-year {
+      color: white;
+    }
+    .data-content {
+      .data-time {
+        color: white;
+      }
+      .data-info {
+        background-color: #a07136;
+        .data-title {
+          color: white;
+        }
+        .data-description,
+        .data-date {
+          color: rgba($color: white, $alpha: 0.6);
+        }
+      }
+    }
+  }
+}
 </style>

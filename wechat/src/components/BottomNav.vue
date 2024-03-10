@@ -40,6 +40,7 @@ const switchTab = (path: string) => {
 .nav {
   width: 100%;
   background-color: #fff;
+
   position: fixed;
   bottom: 0;
   height: 120rpx;
@@ -60,6 +61,15 @@ const switchTab = (path: string) => {
     height: 136rpx;
     bottom: calc(88rpx + constant(safe-area-inset-bottom));
     bottom: calc(88rpx + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav {
+    background-color: #434548;
+    .plus {
+      background-color: #7b7b7b;
+    }
   }
 }
 </style>

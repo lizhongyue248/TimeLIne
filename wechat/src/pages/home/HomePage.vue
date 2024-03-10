@@ -185,4 +185,24 @@ const data = ref([
     }
   }
 }
+@media (prefers-color-scheme: dark) {
+  #home {
+    .premium {
+      background-color: #434548;
+      .nav {
+        background-color: #4365a1;
+      }
+    }
+    .event {
+      .content {
+        .data {
+          background-color: #a07136;
+          .date {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
 </style>
