@@ -1,19 +1,27 @@
 {
-    "name" : "",
-    "appid" : "",
-    "description" : "",
-    "versionName" : "1.0.0",
-    "versionCode" : "100",
-    "transformPx" : false,
-    "mp-weixin" : {
-        "appid" : "",
-        "setting" : {
-            "urlCheck" : false
-        },
-        "usingComponents" : true
+  "name": "TimeLine",
+  "appid": "",
+  "description": "Time Line",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "h5": {
+    "darkmode": true
+  },
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false
     },
-    "uniStatistics": {  
-        "enable": false
-    },
-    "vueVersion" : "3"
+    "darkmode": true,
+    "usingComponents": true
+  },
+  "mp-qq": {
+    "darkmode": true,
+    "usingComponents": true
+  },
+  "uniStatistics": {
+    "enable": false
+  },
+  "vueVersion": "3"
 }
