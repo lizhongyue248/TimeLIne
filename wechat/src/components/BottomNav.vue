@@ -63,7 +63,7 @@ const switchTab = (path: string) => {
     bottom: calc(88rpx + env(safe-area-inset-bottom));
   }
 }
-
+// #ifdef MP-WEIXIN
 @media (prefers-color-scheme: dark) {
   .nav {
     background-color: #434548;
@@ -72,4 +72,5 @@ const switchTab = (path: string) => {
     }
   }
 }
+// #endif
 </style>

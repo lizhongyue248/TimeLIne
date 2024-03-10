@@ -185,6 +185,7 @@ const data = ref([
     }
   }
 }
+// #ifdef MP-WEIXIN
 @media (prefers-color-scheme: dark) {
   #home {
     .premium {
@@ -205,4 +206,5 @@ const data = ref([
     }
   }
 }
+// #endif
 </style>

@@ -197,6 +197,7 @@ import BottomNav from '@/components/BottomNav.vue'
     }
   }
 }
+// #ifdef MP-WEIXIN
 @media (prefers-color-scheme: dark) {
   #account {
     .account-bg {
@@ -215,14 +216,17 @@ import BottomNav from '@/components/BottomNav.vue'
     }
   }
 }
+// #endif
 </style>
 <style>
 page {
   background-color: #f5f5f5;
 }
+/* #ifdef MP-WEIXIN */
 @media (prefers-color-scheme: dark) {
   page {
     background-color: #1a1d22;
   }
 }
+/* #endif */
 </style>

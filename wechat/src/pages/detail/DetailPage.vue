@@ -127,6 +127,7 @@
     }
   }
 }
+// #ifdef MP-WEIXIN
 @media (prefers-color-scheme: dark) {
   #detail {
     background-color: #434548;
@@ -153,4 +154,5 @@
     }
   }
 }
+// #endif
 </style>
