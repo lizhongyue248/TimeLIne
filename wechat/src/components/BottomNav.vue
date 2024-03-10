@@ -1,17 +1,19 @@
 <template>
   <view class="nav">
-    <uni-icons
-      :type="path === Routes.HOME ? 'home-filled' : 'home'"
-      :color="path === Routes.HOME ? 'rgb(97,148,247)' : 'black'"
-      @click="() => switchTab(Routes.HOME)"
-      size="36"
-    />
-    <uni-icons
-      :type="path === Routes.ACCOUNT ? 'person-filled' : 'person'"
-      :color="path === Routes.ACCOUNT ? 'rgb(97,148,247)' : 'black'"
-      @click="() => switchTab(Routes.ACCOUNT)"
-      size="36"
-    />
+    <view class="nav-icon" @click="() => switchTab(Routes.HOME)">
+      <uni-icons
+        :type="path === Routes.HOME ? 'home-filled' : 'home'"
+        :color="path === Routes.HOME ? 'rgb(97,148,247)' : 'black'"
+        size="36"
+      />
+    </view>
+    <view class="nav-icon" @click="() => switchTab(Routes.ACCOUNT)">
+      <uni-icons
+        :type="path === Routes.ACCOUNT ? 'person-filled' : 'person'"
+        :color="path === Routes.ACCOUNT ? 'rgb(97,148,247)' : 'black'"
+        size="36"
+      />
+    </view>
     <view class="plus">
       <uni-icons type="plusempty" color="white" size="32" />
     </view>
@@ -61,6 +63,11 @@ const switchTab = (path: string) => {
     height: 136rpx;
     bottom: calc(88rpx + constant(safe-area-inset-bottom));
     bottom: calc(88rpx + env(safe-area-inset-bottom));
+  }
+  .nav-icon {
+    width: 100%;
+    text-align: center;
+    height: 100%;
   }
 }
 // #ifdef MP-WEIXIN
