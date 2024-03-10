@@ -40,6 +40,9 @@
           <view class="name">{{ item }}</view>
           <view class="date">2024-10-21</view>
         </view>
+        <view class="data new-data">
+          <uni-icons type="plusempty" color="#dbdbdb" size="36" />
+        </view>
       </view>
     </view>
   </view>
@@ -57,9 +60,10 @@ const data = ref(['艳雪要上岸', '忠强也要上岸', '中月要搞钱'])
 <style scoped lang="scss">
 #home {
   padding: $content-padding;
+  margin-bottom: $nav-bottom-margin;
   .header {
     display: flex;
-    padding-top: 56rpx;
+    padding-top: 96rpx;
     align-items: center;
     justify-content: space-between;
     .info {
@@ -134,7 +138,7 @@ const data = ref(['艳雪要上岸', '忠强也要上岸', '中月要搞钱'])
       margin-top: 54rpx;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      grid-gap: 16px 20px;
       .data {
         padding: 32rpx;
         background-color: #fef6ec;
@@ -165,6 +169,11 @@ const data = ref(['艳雪要上岸', '忠强也要上岸', '中月要搞钱'])
           padding-top: 8rpx;
           color: rgba($color: #000000, $alpha: 0.4);
         }
+      }
+      .new-data {
+        @extend .flex-center;
+        background-color: transparent;
+        border: dashed 1px rgba($color: #dbdbdb, $alpha: 1);
       }
     }
   }

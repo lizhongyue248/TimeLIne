@@ -39,6 +39,7 @@ const switchTab = (path: string) => {
 <style scoped lang="scss">
 .nav {
   width: 100%;
+  background-color: #fff;
   position: absolute;
   bottom: 0;
   height: 120rpx;
