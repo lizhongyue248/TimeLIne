@@ -27,6 +27,7 @@ okio = "3.8.0"
 settings = "1.1.1"
 sqldelight = "2.0.1"
 kermit = "2.0.3"
+uuid = "0.8.2"
 # log
 slf4j = "2.0.11"
 tinylog = "2.6.2"
@@ -77,6 +78,14 @@ okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 settings-noarg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "settings" }
 settings-serialization = { module = "com.russhwolf:multiplatform-settings-serialization", version.ref = "settings" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
+
+[bundles]
+server-log = ["slf4j", "tinylog", "tinylog-impl", "tinylog-slf4j"]
+server-utils = ["apache-commons"]
+desktop = ["plist", "jkeymaster", "jSystemThemeDetector"]
+kmp-common = ["kermit", "serialization-json", "serialization-json-okio", "koin",
+    "koin-compose", "kotlinx-datetime", "okio", "settings-noarg", "uuid"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -69,9 +69,7 @@ kotlin {
         desktopMain.dependencies {
             api(compose.desktop.currentOs)
             api(compose.desktop.uiTestJUnit4)
-            api(libs.plist)
-            api(libs.jkeymaster)
-            api(libs.jSystemThemeDetector)
+            api(libs.bundles.desktop)
         }
         desktopTest.dependencies {
         }

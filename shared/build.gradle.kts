@@ -43,15 +43,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.kermit)
-            api(libs.serialization.json)
-            api(libs.serialization.json.okio)
-            api(libs.koin)
-            api(libs.koin.compose)
-            api(libs.kotlinx.datetime)
-            api(libs.okio)
-            api(libs.settings.noarg)
-            api("com.benasher44:uuid:0.8.2")
+            api(libs.bundles.kmp.common)
         }
         commonTest.dependencies {
             api(libs.kotlin.test.junit)
