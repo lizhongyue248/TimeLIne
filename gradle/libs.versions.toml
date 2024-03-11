@@ -18,6 +18,8 @@ kotlin = "1.9.22"
 kotlinx = "1.6.3"
 ktor = "2.3.9"
 koin = "3.6.0-wasm-alpha2"
+exposed = "0.48.0"
+swagger = "1.0.47"
 # common
 app-dirs = "1.2.2"
 apache-commons = "3.14.0"
@@ -55,6 +57,18 @@ compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = 
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
+ktor-server-swagger = { module = "io.ktor:ktor-server-swagger", version.ref = "ktor" }
+ktor-server-openapi = { module = "io.ktor:ktor-server-openapi", version.ref = "ktor" }
+ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor" }
+ktor-server-resources = { module = "io.ktor:ktor-server-resources", version.ref = "ktor" }
+ktor-server-auto-head-response = { module = "io.ktor:ktor-server-auto-head-response", version.ref = "ktor" }
+ktor-server-auto-request-validation = { module = "io.ktor:ktor-server-request-validation", version.ref = "ktor" }
+ktor-server-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
+ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
+ktor-server-auth-jwt = { module = "io.ktor:ktor-server-auth-jwt", version.ref = "ktor" }
+ktor-server-call-logging = { module = "io.ktor:ktor-server-call-logging", version.ref = "ktor" }
+ktor-server-call-id = { module = "io.ktor:ktor-server-call-id", version.ref = "ktor" }
 ktor-server-tests = { module = "io.ktor:ktor-server-tests-jvm", version.ref = "ktor" }
 slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 tinylog = { module = "org.tinylog:tinylog-api-kotlin", version.ref = "tinylog" }
@@ -79,10 +93,22 @@ settings-noarg = { module = "com.russhwolf:multiplatform-settings-no-arg", versi
 settings-serialization = { module = "com.russhwolf:multiplatform-settings-serialization", version.ref = "settings" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-crypt = { module = "org.jetbrains.exposed:exposed-crypt", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed" }
+exposed-json = { module = "org.jetbrains.exposed:exposed-json", version.ref = "exposed" }
+swagger-codegen = { module = "io.swagger.codegen.v3:swagger-codegen-generators", version.ref = "swagger" }
 
 [bundles]
 server-log = ["slf4j", "tinylog", "tinylog-impl", "tinylog-slf4j"]
-server-utils = ["apache-commons"]
+server-utils = ["apache-commons", "swagger-codegen"]
+server-ktor = ["ktor-server-core", "ktor-server-netty", "ktor-server-swagger", "ktor-server-openapi",
+    "ktor-server-compression", "ktor-server-resources", "ktor-server-auto-head-response",
+    "ktor-server-auto-request-validation", "ktor-server-serialization-json", "ktor-server-status-pages",
+    "ktor-server-auth", "ktor-server-auth-jwt", "ktor-server-call-logging", "ktor-server-call-id"]
+server-exposed = ["exposed-core", "exposed-crypt", "exposed-dao", "exposed-jdbc", "exposed-kotlin-datetime", "exposed-json"]
 desktop = ["plist", "jkeymaster", "jSystemThemeDetector"]
 kmp-common = ["kermit", "serialization-json", "serialization-json-okio", "koin",
     "koin-compose", "kotlinx-datetime", "okio", "settings-noarg", "uuid"]

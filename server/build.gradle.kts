@@ -13,9 +13,13 @@ application {
 
 dependencies {
     implementation(projects.shared)
-    implementation(libs.ktor.server.core)
-    implementation(libs.ktor.server.netty)
-    testImplementation(libs.ktor.server.tests)
-    api(libs.bundles.server.log)
-    api(libs.bundles.server.utils)
+    implementation(libs.bundles.server.ktor)
+    implementation(libs.bundles.server.log)
+    implementation(libs.bundles.server.utils)
+    implementation(libs.bundles.server.exposed)
+    implementation(kotlin("test"))
+    implementation(libs.ktor.server.tests)
+}
+configurations.all {
+    exclude(group = "ch.qos.logback")
 }
