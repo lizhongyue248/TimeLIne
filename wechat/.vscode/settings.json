@@ -1,15 +1,16 @@
 {
-    "cSpell.words": [
-        "automator",
-        "dcloudio",
-        "openapi",
-        "stacktracey",
-        "wechat",
-        "weixin"
-    ],
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll": "always",
-        "source.fixAll.eslint": "always"
-    }
+  "cSpell.words": [
+    "automator",
+    "dcloudio",
+    "openapi",
+    "stacktracey",
+    "wechat",
+    "weixin"
+  ],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always",
+    "source.fixAll.eslint": "always"
+  },
+  "eslint.validate": ["d.ts", "vue", "ts"]
 }

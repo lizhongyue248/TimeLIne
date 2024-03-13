@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { onLaunch, onShow, onHide } from '@dcloudio/uni-app'
+import { wechatAuth } from './api/wechat'
+
 onLaunch(() => {
   console.log('App Launch')
   // #ifdef H5
@@ -8,23 +10,17 @@ onLaunch(() => {
 })
 onShow(() => {
   console.log('App Show')
-  // uni.login({
-  //   provider: 'weixin',
-  //   success: function (loginRes) {
-  //     // 登录成功
-  //     console.log(loginRes)
-  //     uni.getUserInfo({
-  //       provider: 'weixin',
-  //       success: function (info) {
-  //         // 获取用户信息成功, info.authResult保存用户信息
-  //         console.log(info)
-  //       }
-  //     })
-  //   },
-  //   fail: function (err) {
-  //     console.error(err)
-  //   }
-  // })
+  uni.login({
+    provider: 'weixin',
+    success: async loginRes => {
+      // 登录成功
+      const data = await wechatAuth(loginRes.code)
+      console.log(data)
+    },
+    fail: err => {
+      console.error(err)
+    }
+  })
 })
 onHide(() => {
   console.log('App Hide')

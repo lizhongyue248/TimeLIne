@@ -40,6 +40,7 @@ jSystemThemeDetector = "3.8"
 # test
 kotlinx-coroutines-test = "1.8.0"
 mockk = "1.13.9"
+hoplite = "2.7.5"
 
 
 [libraries]
@@ -55,6 +56,13 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-resources = { module = "io.ktor:ktor-client-resources", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-server-core = { module = "io.ktor:ktor-server-core-jvm", version.ref = "ktor" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty-jvm", version.ref = "ktor" }
 ktor-server-swagger = { module = "io.ktor:ktor-server-swagger", version.ref = "ktor" }
@@ -62,7 +70,7 @@ ktor-server-openapi = { module = "io.ktor:ktor-server-openapi", version.ref = "k
 ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor" }
 ktor-server-resources = { module = "io.ktor:ktor-server-resources", version.ref = "ktor" }
 ktor-server-auto-head-response = { module = "io.ktor:ktor-server-auto-head-response", version.ref = "ktor" }
-ktor-server-auto-request-validation = { module = "io.ktor:ktor-server-request-validation", version.ref = "ktor" }
+ktor-server-request-validation = { module = "io.ktor:ktor-server-request-validation", version.ref = "ktor" }
 ktor-server-serialization-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-server-status-pages = { module = "io.ktor:ktor-server-status-pages", version.ref = "ktor" }
 ktor-server-auth = { module = "io.ktor:ktor-server-auth", version.ref = "ktor" }
@@ -83,10 +91,12 @@ jkeymaster = { module = "com.github.tulskiy:jkeymaster", version.ref = "jkeymast
 jSystemThemeDetector = { module = "com.github.Dansoftowner:jSystemThemeDetector", version.ref = "jSystemThemeDetector" }
 json-schema = { module = "com.github.Ricky12Awesome:json-schema-serialization", version.ref = "json-schema" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx" }
+serialization-json-jvm = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm", version.ref = "kotlinx" }
 serialization-json-okio = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json-okio", version.ref = "kotlinx" }
 pre-compose = { module = "moe.tlaster:precompose", version.ref = "pre-compose" }
 koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
+koin-ktor = { module = "io.insert-koin:koin-ktor", version.ref = "koin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 settings-noarg = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "settings" }
@@ -100,18 +110,21 @@ exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "e
 exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime", version.ref = "exposed" }
 exposed-json = { module = "org.jetbrains.exposed:exposed-json", version.ref = "exposed" }
 swagger-codegen = { module = "io.swagger.codegen.v3:swagger-codegen-generators", version.ref = "swagger" }
+hoplite-json = { module = "com.sksamuel.hoplite:hoplite-json", version.ref = "hoplite"}
 
 [bundles]
 server-log = ["slf4j", "tinylog", "tinylog-impl", "tinylog-slf4j"]
-server-utils = ["apache-commons", "swagger-codegen"]
+server-utils = ["apache-commons", "swagger-codegen", "serialization-json-jvm"]
 server-ktor = ["ktor-server-core", "ktor-server-netty", "ktor-server-swagger", "ktor-server-openapi",
     "ktor-server-compression", "ktor-server-resources", "ktor-server-auto-head-response",
-    "ktor-server-auto-request-validation", "ktor-server-serialization-json", "ktor-server-status-pages",
+    "ktor-server-request-validation", "ktor-server-serialization-json", "ktor-server-status-pages",
     "ktor-server-auth", "ktor-server-auth-jwt", "ktor-server-call-logging", "ktor-server-call-id"]
 server-exposed = ["exposed-core", "exposed-crypt", "exposed-dao", "exposed-jdbc", "exposed-kotlin-datetime", "exposed-json"]
 desktop = ["plist", "jkeymaster", "jSystemThemeDetector"]
 kmp-common = ["kermit", "serialization-json", "serialization-json-okio", "koin",
     "koin-compose", "kotlinx-datetime", "okio", "settings-noarg", "uuid"]
+server-ktor-client = ["ktor-client-core", "ktor-client-cio", "ktor-client-logging",
+    "ktor-client-content-negotiation", "ktor-client-resources"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

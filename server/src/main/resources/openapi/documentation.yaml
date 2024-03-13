@@ -18,4 +18,36 @@ paths:
                 type: "string"
               examples:
                 Example#1:
-                  value: ""
+                  value: "Welcome to server."
+  /wechat/auth/{code}:
+    get:
+      description: ""
+      parameters:
+      - name: "code"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CodeSession"
+components:
+  schemas:
+    CodeSession:
+      type: "object"
+      properties:
+        sessionKey:
+          type: "string"
+        unionId:
+          type: "string"
+        errorMessage:
+          type: "string"
+        openId:
+          type: "string"
+        errorCode:
+          type: "integer"
+          format: "int32"

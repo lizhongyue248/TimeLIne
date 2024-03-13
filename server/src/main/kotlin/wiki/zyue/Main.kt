@@ -1,6 +1,5 @@
 package wiki.zyue
 
-import Greeting
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
@@ -17,6 +16,10 @@ import io.ktor.server.plugins.swagger.*
 import io.ktor.server.resources.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.koin.ktor.plugin.Koin
+import wiki.zyue.client.WechatClient
+import wiki.zyue.configuration.ApplicationConfiguration
+import wiki.zyue.route.wechatModule
 
 fun main() {
     val env = applicationEngineEnvironment {
@@ -27,7 +30,6 @@ fun main() {
 
 fun ApplicationEngineEnvironmentBuilder.envConfig() {
     module {
-        module()
         install(CORS) {
             anyHost()
             allowHeader(HttpHeaders.ContentType)
@@ -38,9 +40,19 @@ fun ApplicationEngineEnvironmentBuilder.envConfig() {
         install(RequestValidation)
         install(CallLogging)
         install(ContentNegotiation) {
-            json()
+            json(wiki.zyue.configuration.DefaultJson)
         }
         install(CallId)
+        install(Koin) {
+            printLogger()
+            modules(
+                org.koin.dsl.module {
+                    single { WechatClient(ApplicationConfiguration.wechat) }
+                }
+            )
+        }
+        wechatModule()
+        mainModule()
     }
     connector {
         host = "0.0.0.0"
@@ -48,13 +60,9 @@ fun ApplicationEngineEnvironmentBuilder.envConfig() {
     }
 }
 
-fun Application.module() {
+fun Application.mainModule() {
     routing {
-        swaggerUI(path = "swagger", swaggerFile = "openapi/documentation.yaml") {
-            version = "4.15.5"
-        }
-        get("/") {
-            call.respondText("Ktor: ${Greeting().greet()}")
-        }
+        get { call.respondText("Welcome to server.") }
+        swaggerUI(path = "swagger", swaggerFile = "openapi/documentation.yaml")
     }
 }

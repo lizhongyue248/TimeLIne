@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
+    alias(libs.plugins.kotlinSerialization)
     application
 }
 
@@ -17,8 +18,11 @@ dependencies {
     implementation(libs.bundles.server.log)
     implementation(libs.bundles.server.utils)
     implementation(libs.bundles.server.exposed)
+    implementation(libs.bundles.server.ktor.client)
+    implementation(libs.koin.ktor)
     implementation(kotlin("test"))
     implementation(libs.ktor.server.tests)
+    implementation(libs.hoplite.json)
 }
 configurations.all {
     exclude(group = "ch.qos.logback")
